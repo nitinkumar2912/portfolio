@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(59, 130, 246, 0.2), transparent 32rem),
+    radial-gradient(circle at 82% 8%, rgba(168, 85, 247, 0.16), transparent 30rem),
+    radial-gradient(circle at 70% 88%, rgba(20, 184, 166, 0.1), transparent 34rem),
+    #070a12;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent 78%);
+}
+
+::selection {
+  background: rgba(96, 165, 250, 0.36);
+  color: #f8fafc;
+}
+
+@layer components {
+  .section-shell {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-6 lg:px-8;
+  }
+
+  .glass-panel {
+    @apply border border-white/10 bg-white/[0.055] shadow-soft backdrop-blur-xl;
+  }
+
+  .section-kicker {
+    @apply text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300;
+  }
+
+  .section-title {
+    @apply mt-3 text-3xl font-bold text-slate-50 sm:text-4xl;
+  }
+
+  .section-copy {
+    @apply mt-4 max-w-2xl text-base leading-7 text-slate-300;
+  }
+
+  .accent-text {
+    @apply bg-gradient-to-r from-cyan-300 via-blue-300 to-violet-300 bg-clip-text text-transparent;
+  }
+
+  .nav-link {
+    @apply rounded-full px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/10 hover:text-white;
+  }
+
+  .primary-button {
+    @apply inline-flex items-center justify-center rounded-full bg-gradient-to-r from-cyan-400 to-violet-500 px-5 py-3 text-sm font-semibold text-slate-950 shadow-glow transition hover:-translate-y-0.5 hover:shadow-cyan-500/30 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2 focus:ring-offset-slate-950;
+  }
+
+  .secondary-button {
+    @apply inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-slate-100 transition hover:-translate-y-0.5 hover:border-cyan-300/60 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2 focus:ring-offset-slate-950;
+  }
+
+  .skill-chip {
+    @apply rounded-full border border-white/10 bg-slate-950/50 px-3 py-2 text-sm font-medium text-slate-200 transition-all duration-300 ease-out hover:border-cyan-300/50 hover:bg-cyan-300/10 hover:text-white;
+  }
+}
