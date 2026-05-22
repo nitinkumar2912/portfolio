@@ -279,12 +279,17 @@ function Projects() {
                 <a
                   href={project.github}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="secondary-button"
                 >
                   GitHub
                 </a>
-                <a href={project.demo} className="primary-button">
+                <a
+                  href={project.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="primary-button"
+                >
                   Live Demo
                 </a>
               </div>
@@ -381,7 +386,11 @@ function Contact() {
                   key={link.label}
                   href={link.href}
                   target={link.href.startsWith("mailto:") ? undefined : "_blank"}
-                  rel={link.href.startsWith("mailto:") ? undefined : "noreferrer"}
+                  rel={
+                    link.href.startsWith("mailto:")
+                      ? undefined
+                      : "noopener noreferrer"
+                  }
                   className={index === 0 ? "primary-button" : "secondary-button"}
                 >
                   <span className="flex flex-col items-center gap-1 leading-tight">
