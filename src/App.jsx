@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const navItems = [
   { label: "About", href: "#about" },
@@ -66,12 +66,195 @@ const dsaTopics = [
   "Kadane's Algorithm",
 ];
 
+const floatingTech = ["React", "Node", "Mongo", "DSA", "API", "Git"];
+
+const workflowHighlights = [
+  {
+    label: "Frontend",
+    value: "Responsive UI",
+    detail: "Clean layouts that work across mobile, tablet, and desktop.",
+  },
+  {
+    label: "Backend",
+    value: "API Thinking",
+    detail: "Express, MongoDB, auth flows, and practical full-stack patterns.",
+  },
+  {
+    label: "Delivery",
+    value: "Project Mindset",
+    detail: "Readable code, GitHub-ready work, and steady iteration.",
+  },
+];
+
+const processSteps = [
+  "Understand the feature and user flow",
+  "Design clean responsive UI",
+  "Build frontend and API structure",
+  "Test, refine, and ship",
+];
+
+function usePointerParallax() {
+  const [style, setStyle] = useState({
+    "--mx": "0deg",
+    "--my": "0deg",
+    "--tx": "0px",
+    "--ty": "0px",
+  });
+
+  useEffect(() => {
+    const handlePointerMove = (event) => {
+      const x = event.clientX / window.innerWidth - 0.5;
+      const y = event.clientY / window.innerHeight - 0.5;
+
+      setStyle({
+        "--mx": `${(-y * 10).toFixed(2)}deg`,
+        "--my": `${(x * 12).toFixed(2)}deg`,
+        "--tx": `${(x * 18).toFixed(2)}px`,
+        "--ty": `${(y * 18).toFixed(2)}px`,
+      });
+    };
+
+    window.addEventListener("pointermove", handlePointerMove);
+    return () => window.removeEventListener("pointermove", handlePointerMove);
+  }, []);
+
+  return style;
+}
+
+function useScrollReveal() {
+  useEffect(() => {
+    const revealItems = document.querySelectorAll(".reveal-on-scroll");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: "0px 0px -12% 0px", threshold: 0.12 },
+    );
+
+    revealItems.forEach((item) => observer.observe(item));
+    return () => observer.disconnect();
+  }, []);
+}
+
+function useScrollProgress() {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const updateProgress = () => {
+      const scrollable =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const nextProgress =
+        scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+      setProgress(Math.min(100, Math.max(0, nextProgress)));
+    };
+
+    updateProgress();
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress);
+
+    return () => {
+      window.removeEventListener("scroll", updateProgress);
+      window.removeEventListener("resize", updateProgress);
+    };
+  }, []);
+
+  return progress;
+}
+
+function AmbientStage() {
+  return (
+    <div className="ambient-stage" aria-hidden="true">
+      <span className="ambient-beam ambient-beam-one" />
+      <span className="ambient-beam ambient-beam-two" />
+      <span className="ambient-ring ambient-ring-one" />
+      <span className="ambient-ring ambient-ring-two" />
+      <span className="depth-particle depth-particle-one" />
+      <span className="depth-particle depth-particle-two" />
+      <span className="depth-particle depth-particle-three" />
+      <span className="depth-particle depth-particle-four" />
+    </div>
+  );
+}
+
+function ScrollProgress({ progress }) {
+  return (
+    <div className="scroll-progress" aria-hidden="true">
+      <span style={{ transform: `scaleX(${progress / 100})` }} />
+    </div>
+  );
+}
+
+function CodeCube() {
+  return (
+    <div className="cube-wrap" aria-hidden="true">
+      <div className="cube">
+        <span className="cube-face cube-front">UI</span>
+        <span className="cube-face cube-back">API</span>
+        <span className="cube-face cube-right">DB</span>
+        <span className="cube-face cube-left">DSA</span>
+        <span className="cube-face cube-top">JS</span>
+        <span className="cube-face cube-bottom">CS</span>
+      </div>
+    </div>
+  );
+}
+
+function HeroVisual() {
+  const parallaxStyle = usePointerParallax();
+
+  return (
+    <div
+      className="hero-visual animate-fade-up [animation-delay:120ms]"
+      style={parallaxStyle}
+    >
+      <div className="hologram-orbit">
+        {floatingTech.map((item, index) => (
+          <span
+            key={item}
+            className="orbit-chip"
+            style={{ "--slot": index, "--delay": `${index * -1.35}s` }}
+          >
+            {item}
+          </span>
+        ))}
+      </div>
+
+      <CodeCube />
+
+      <div className="code-terminal">
+        <div className="mb-6 flex items-center gap-2">
+          <span className="h-3 w-3 rounded-full bg-rose-400"></span>
+          <span className="h-3 w-3 rounded-full bg-amber-300"></span>
+          <span className="h-3 w-3 rounded-full bg-emerald-400"></span>
+          <span className="ml-3 text-xs font-medium text-slate-500">
+            portfolio.jsx
+          </span>
+        </div>
+        <pre className="overflow-hidden whitespace-pre-wrap text-sm leading-7 text-slate-300">
+          <code>{`const developer = {
+  name: "Nitin Kumar",
+  focus: ["Full-stack web", "DSA", "Backend"],
+  currentlyLearning: ["Node.js", "MongoDB", "JWT"],
+  goal: "Build reliable projects and prepare for placements"
+};`}</code>
+        </pre>
+      </div>
+    </div>
+  );
+}
+
 function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur-xl">
       <nav className="section-shell flex min-h-16 items-center justify-between gap-4">
-        <a href="#home" className="flex items-center gap-3">
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-cyan-400 to-violet-500 text-sm font-black text-slate-950">
+        <a href="#home" className="group flex items-center gap-3">
+          <span className="logo-mark grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-cyan-400 to-violet-500 text-sm font-black text-slate-950">
             NK
           </span>
           <span className="hidden text-sm font-semibold text-white sm:inline">
@@ -100,7 +283,7 @@ function Navbar() {
 
 function SectionHeading({ kicker, title, copy }) {
   return (
-    <div className="animate-fade-up">
+    <div className="reveal-on-scroll">
       <p className="section-kicker">{kicker}</p>
       <h2 className="section-title">{title}</h2>
       {copy ? <p className="section-copy">{copy}</p> : null}
@@ -110,7 +293,10 @@ function SectionHeading({ kicker, title, copy }) {
 
 function Hero() {
   return (
-    <section id="home" className="section-shell grid min-h-[calc(100vh-4rem)] items-center py-20">
+    <section
+      id="home"
+      className="section-shell grid min-h-[calc(100vh-4rem)] items-center py-20"
+    >
       <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
         <div className="animate-fade-up">
           <p className="mb-5 inline-flex rounded-full border border-cyan-300/25 bg-cyan-300/10 px-4 py-2 text-sm font-medium text-cyan-200">
@@ -137,26 +323,27 @@ function Hero() {
           </div>
         </div>
 
-        <div className="glass-panel animate-fade-up rounded-[2rem] p-5 [animation-delay:120ms]">
-          <div className="rounded-[1.5rem] border border-white/10 bg-slate-950/70 p-6">
-            <div className="mb-6 flex items-center gap-2">
-              <span className="h-3 w-3 rounded-full bg-rose-400"></span>
-              <span className="h-3 w-3 rounded-full bg-amber-300"></span>
-              <span className="h-3 w-3 rounded-full bg-emerald-400"></span>
-              <span className="ml-3 text-xs font-medium text-slate-500">
-                portfolio.jsx
-              </span>
-            </div>
-            <pre className="overflow-hidden whitespace-pre-wrap text-sm leading-7 text-slate-300">
-              <code>{`const developer = {
-  name: "Nitin Kumar",
-  focus: ["Full-stack web", "DSA", "Backend"],
-  currentlyLearning: ["Node.js", "MongoDB", "JWT"],
-  goal: "Build reliable projects and prepare for placements"
-};`}</code>
-            </pre>
-          </div>
-        </div>
+        <HeroVisual />
+      </div>
+    </section>
+  );
+}
+
+function WorkflowStrip() {
+  return (
+    <section className="section-shell py-8">
+      <div className="freelance-strip reveal-on-scroll">
+        {workflowHighlights.map((item, index) => (
+          <article
+            key={item.label}
+            className="workflow-card"
+            style={{ "--delay": `${index * 110}ms` }}
+          >
+            <p>{item.label}</p>
+            <h3>{item.value}</h3>
+            <span>{item.detail}</span>
+          </article>
+        ))}
       </div>
     </section>
   );
@@ -171,7 +358,7 @@ function About() {
   ];
 
   return (
-    <section id="about" className="py-20">
+    <section id="about" className="animated-section py-20">
       <div className="section-shell">
         <SectionHeading
           kicker="About"
@@ -183,7 +370,7 @@ function About() {
           {points.map((point, index) => (
             <div
               key={point}
-              className="glass-panel rounded-2xl p-6 transition hover:-translate-y-1 hover:border-cyan-300/30"
+              className="reveal-on-scroll tilt-card glass-panel rounded-2xl p-6 transition hover:-translate-y-1 hover:border-cyan-300/30"
               style={{ animationDelay: `${index * 80}ms` }}
             >
               <span className="mb-5 grid h-10 w-10 place-items-center rounded-xl bg-cyan-300/10 text-sm font-bold text-cyan-200">
@@ -200,7 +387,7 @@ function About() {
 
 function Skills() {
   return (
-    <section id="skills" className="py-20">
+    <section id="skills" className="animated-section py-20">
       <div className="section-shell">
         <SectionHeading
           kicker="Skills"
@@ -212,7 +399,7 @@ function Skills() {
           {skillGroups.map((group) => (
             <article
               key={group.title}
-              className="glass-panel rounded-2xl p-6 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-cyan-300/40 hover:bg-white/[0.075] hover:shadow-glow"
+              className="reveal-on-scroll tilt-card glass-panel rounded-2xl p-6 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-cyan-300/40 hover:bg-white/[0.075] hover:shadow-glow"
             >
               <h3 className="text-lg font-semibold text-white">{group.title}</h3>
               <div className="mt-5 flex flex-wrap gap-3">
@@ -232,7 +419,7 @@ function Skills() {
 
 function Projects() {
   return (
-    <section id="projects" className="py-20">
+    <section id="projects" className="animated-section py-20">
       <div className="section-shell">
         <SectionHeading
           kicker="Projects"
@@ -244,8 +431,9 @@ function Projects() {
           {projects.map((project) => (
             <article
               key={project.title}
-              className="glass-panel group flex min-h-[22rem] flex-col rounded-3xl p-6 transition hover:-translate-y-1 hover:border-cyan-300/30"
+              className="reveal-on-scroll project-card glass-panel group flex min-h-[22rem] flex-col rounded-3xl p-6 transition hover:-translate-y-1 hover:border-cyan-300/30"
             >
+              <div className="project-card-shine" aria-hidden="true" />
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-sm font-semibold text-cyan-200">
@@ -301,9 +489,36 @@ function Projects() {
   );
 }
 
+function Process() {
+  return (
+    <section className="animated-section py-20">
+      <div className="section-shell">
+        <SectionHeading
+          kicker="Workflow"
+          title="How I approach client-style work"
+          copy="A simple delivery process that keeps projects focused, polished, and easy to improve."
+        />
+
+        <div className="process-timeline mt-10">
+          {processSteps.map((step, index) => (
+            <div
+              key={step}
+              className="reveal-on-scroll process-step"
+              style={{ "--delay": `${index * 130}ms` }}
+            >
+              <span>0{index + 1}</span>
+              <p>{step}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Dsa() {
   return (
-    <section id="dsa" className="py-20">
+    <section id="dsa" className="animated-section py-20">
       <div className="section-shell">
         <SectionHeading
           kicker="DSA"
@@ -312,7 +527,7 @@ function Dsa() {
         />
 
         <div className="mt-10 grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
-          <div className="glass-panel rounded-3xl p-6">
+          <div className="reveal-on-scroll tilt-card glass-panel rounded-3xl p-6">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-violet-200">
               LeetCode Practice
             </p>
@@ -331,13 +546,13 @@ function Dsa() {
             </div>
           </div>
 
-          <div className="glass-panel rounded-3xl p-6">
+          <div className="reveal-on-scroll tilt-card glass-panel rounded-3xl p-6">
             <h3 className="text-xl font-bold text-white">Topics learned</h3>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               {dsaTopics.map((topic) => (
                 <div
                   key={topic}
-                  className="rounded-2xl border border-white/10 bg-white/[0.045] p-4 transition hover:border-cyan-300/40 hover:bg-cyan-300/10"
+                  className="topic-tile rounded-2xl border border-white/10 bg-white/[0.045] p-4 transition hover:border-cyan-300/40 hover:bg-cyan-300/10"
                 >
                   <p className="font-semibold text-slate-100">{topic}</p>
                 </div>
@@ -365,9 +580,9 @@ function Contact() {
   ];
 
   return (
-    <section id="contact" className="py-20">
+    <section id="contact" className="animated-section py-20">
       <div className="section-shell">
-        <div className="glass-panel rounded-3xl p-7 sm:p-10">
+        <div className="reveal-on-scroll contact-panel glass-panel rounded-3xl p-7 sm:p-10">
           <div className="grid gap-8 lg:grid-cols-[1fr_0.8fr] lg:items-center">
             <div>
               <p className="section-kicker">Contact</p>
@@ -425,13 +640,20 @@ function Footer() {
 }
 
 export default function App() {
+  useScrollReveal();
+  const scrollProgress = useScrollProgress();
+
   return (
     <main className="relative">
+      <AmbientStage />
+      <ScrollProgress progress={scrollProgress} />
       <Navbar />
       <Hero />
+      <WorkflowStrip />
       <About />
       <Skills />
       <Projects />
+      <Process />
       <Dsa />
       <Contact />
       <Footer />
