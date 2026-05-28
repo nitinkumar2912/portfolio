@@ -6,6 +6,7 @@
 
 :root {
   color-scheme: dark;
+  --scroll-progress: 0;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -47,12 +48,11 @@ body::after {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.32;
+  opacity: 0.24;
   background-image:
     linear-gradient(115deg, transparent 0 43%, rgba(103, 232, 249, 0.09) 47%, transparent 52%),
     radial-gradient(circle at var(--spot-x, 50%) var(--spot-y, 35%), rgba(125, 211, 252, 0.14), transparent 23rem);
   mix-blend-mode: screen;
-  animation: backgroundSweep 16s ease-in-out infinite alternate;
 }
 
 ::selection {
@@ -151,22 +151,23 @@ body::after {
   display: block;
   width: 100%;
   height: 100%;
+  transform: scaleX(var(--scroll-progress));
   transform-origin: left;
   background: linear-gradient(90deg, #22d3ee, #60a5fa, #a78bfa, #2dd4bf);
   box-shadow:
-    0 0 18px rgba(34, 211, 238, 0.75),
-    0 0 34px rgba(124, 58, 237, 0.45);
-  transition: transform 120ms linear;
+    0 0 12px rgba(34, 211, 238, 0.62),
+    0 0 24px rgba(124, 58, 237, 0.3);
+  will-change: transform;
 }
 
 .reveal-on-scroll {
   opacity: 0;
-  transform: translate3d(0, 2.4rem, 0) scale(0.985);
-  filter: blur(14px);
+  transform: translate3d(0, 1.7rem, 0) scale(0.99);
+  filter: blur(6px);
   transition:
-    opacity 850ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 850ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 850ms ease;
+    opacity 620ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 620ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 620ms ease;
   transition-delay: var(--delay, 0ms);
   will-change: opacity, transform, filter;
 }
@@ -179,6 +180,7 @@ body::after {
 
 .animated-section {
   position: relative;
+  contain: paint;
   overflow: clip;
 }
 
@@ -202,10 +204,10 @@ body::after {
   border-radius: 999px;
   background: radial-gradient(circle, rgba(34, 211, 238, 0.09), transparent 63%);
   transform: translateX(-50%);
-  filter: blur(28px);
-  opacity: 0.55;
+  filter: blur(16px);
+  opacity: 0.38;
   pointer-events: none;
-  animation: sectionGlow 13s ease-in-out infinite alternate;
+  animation: sectionGlow 18s ease-in-out infinite alternate;
 }
 
 .ambient-stage {
@@ -222,8 +224,8 @@ body::after {
   width: 36rem;
   height: 36rem;
   border-radius: 999px;
-  filter: blur(34px);
-  opacity: 0.18;
+  filter: blur(22px);
+  opacity: 0.13;
   transform: translate3d(0, 0, 0);
 }
 
@@ -231,14 +233,14 @@ body::after {
   left: -12rem;
   top: 12rem;
   background: conic-gradient(from 90deg, rgba(34, 211, 238, 0.7), transparent, rgba(99, 102, 241, 0.62), transparent);
-  animation: driftBeam 22s ease-in-out infinite alternate;
+  animation: driftBeam 28s ease-in-out infinite alternate;
 }
 
 .ambient-beam-two {
   right: -14rem;
   bottom: 5rem;
   background: conic-gradient(from 210deg, rgba(168, 85, 247, 0.62), transparent, rgba(45, 212, 191, 0.62), transparent);
-  animation: driftBeam 26s ease-in-out infinite alternate-reverse;
+  animation: driftBeam 32s ease-in-out infinite alternate-reverse;
 }
 
 .ambient-ring {
@@ -264,7 +266,7 @@ body::after {
   bottom: 12%;
   width: 18rem;
   height: 18rem;
-  animation: rotateRing 24s linear infinite reverse;
+  animation: rotateRing 34s linear infinite reverse;
 }
 
 .depth-particle {
@@ -275,9 +277,9 @@ body::after {
   border-radius: 999px;
   background: rgba(125, 211, 252, 0.9);
   box-shadow:
-    0 0 18px rgba(34, 211, 238, 0.85),
-    0 0 42px rgba(99, 102, 241, 0.45);
-  animation: floatParticle 12s ease-in-out infinite;
+    0 0 14px rgba(34, 211, 238, 0.72),
+    0 0 28px rgba(99, 102, 241, 0.32);
+  animation: floatParticle 16s ease-in-out infinite;
 }
 
 .depth-particle-one {
@@ -309,6 +311,11 @@ body::after {
   overflow: hidden;
   perspective: 1200px;
   transform-style: preserve-3d;
+  --mx: 0deg;
+  --my: 0deg;
+  --tx: 0px;
+  --ty: 0px;
+  contain: paint;
 }
 
 .hero-visual::before {
@@ -317,7 +324,7 @@ body::after {
   inset: 10% 4% 0;
   border-radius: 999px;
   background: radial-gradient(circle, rgba(34, 211, 238, 0.18), transparent 62%);
-  filter: blur(22px);
+  filter: blur(14px);
   transform: rotateX(68deg) translateY(11rem);
   animation: floorPulse 6s ease-in-out infinite;
 }
@@ -344,7 +351,8 @@ body::after {
     translate3d(var(--tx), var(--ty), 0)
     rotateX(calc(62deg + var(--mx)))
     rotateZ(var(--my));
-  animation: orbitPlane 18s linear infinite;
+  animation: orbitPlane 24s linear infinite;
+  will-change: transform;
 }
 
 .orbit-chip {
@@ -373,7 +381,7 @@ body::after {
     translateX(clamp(8.5rem, 24vw, 13rem))
     rotate(calc(var(--angle) * -1))
     rotateX(-60deg);
-  animation: chipBreathe 4s ease-in-out infinite;
+  animation: chipBreathe 6s ease-in-out infinite;
   animation-delay: var(--delay);
 }
 
@@ -388,6 +396,7 @@ body::after {
     translate3d(calc(var(--tx) * -0.45), calc(var(--ty) * 0.35), 80px)
     rotateX(var(--mx))
     rotateY(var(--my));
+  will-change: transform;
 }
 
 .cube {
@@ -395,7 +404,8 @@ body::after {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  animation: spinCube 14s cubic-bezier(0.45, 0, 0.2, 1) infinite;
+  animation: spinCube 18s cubic-bezier(0.45, 0, 0.2, 1) infinite;
+  will-change: transform;
 }
 
 .cube-face {
@@ -413,7 +423,7 @@ body::after {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.24),
     0 0 28px rgba(56, 189, 248, 0.16);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(8px);
 }
 
 .cube-front {
@@ -451,8 +461,8 @@ body::after {
     rgba(15, 23, 42, 0.82);
   padding: 1.5rem;
   box-shadow:
-    0 34px 90px rgba(0, 0, 0, 0.48),
-    0 0 70px rgba(34, 211, 238, 0.13),
+    0 28px 70px rgba(0, 0, 0, 0.42),
+    0 0 42px rgba(34, 211, 238, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.11);
   overflow: hidden;
   transform:
@@ -460,7 +470,8 @@ body::after {
     rotateX(calc(var(--mx) * 0.65))
     rotateY(calc(var(--my) * 0.7));
   transform-style: preserve-3d;
-  animation: terminalFloat 7s ease-in-out infinite;
+  animation: terminalFloat 9s ease-in-out infinite;
+  will-change: transform;
 }
 
 .code-terminal::before {
@@ -472,7 +483,7 @@ body::after {
     repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 6px);
   opacity: 0.45;
   transform: translateX(-45%);
-  animation: terminalScan 5.8s ease-in-out infinite;
+  animation: terminalScan 8s ease-in-out infinite;
 }
 
 .code-terminal > * {
@@ -518,7 +529,7 @@ body::after {
   padding: 1.25rem;
   overflow: hidden;
   transform-style: preserve-3d;
-  animation: workflowFloat 6.5s ease-in-out infinite;
+  animation: workflowFloat 8s ease-in-out infinite;
   animation-delay: var(--delay);
 }
 
@@ -528,7 +539,7 @@ body::after {
   inset: auto 1rem 0;
   height: 2px;
   background: linear-gradient(90deg, #22d3ee, #818cf8, transparent);
-  box-shadow: 0 0 18px rgba(34, 211, 238, 0.55);
+  box-shadow: 0 0 12px rgba(34, 211, 238, 0.42);
   transform: scaleX(0.35);
   transform-origin: left;
   transition: transform 320ms ease;
@@ -587,8 +598,8 @@ body::after {
 .project-card:hover {
   transform: perspective(1000px) rotateX(5deg) rotateY(5deg) translateY(-8px);
   box-shadow:
-    0 36px 90px rgba(0, 0, 0, 0.48),
-    0 0 52px rgba(56, 189, 248, 0.16);
+    0 28px 70px rgba(0, 0, 0, 0.42),
+    0 0 32px rgba(56, 189, 248, 0.12);
 }
 
 .project-card-shine {
@@ -602,7 +613,7 @@ body::after {
 
 .project-card:hover .project-card-shine {
   opacity: 1;
-  animation: cardAurora 5s linear infinite;
+  animation: cardAurora 8s linear infinite;
 }
 
 .project-card::after {
@@ -852,6 +863,12 @@ body::after {
 }
 
 @media (max-width: 900px) {
+  .ambient-beam-two,
+  .ambient-ring-two,
+  .depth-particle-four {
+    display: none;
+  }
+
   .freelance-strip {
     grid-template-columns: 1fr;
   }
@@ -907,8 +924,15 @@ body::after {
 }
 
 @media (max-width: 520px) {
+  body::after,
+  .ambient-ring,
+  .depth-particle-three {
+    display: none;
+  }
+
   .workflow-card {
     min-height: auto;
+    animation: none;
   }
 
   .process-step {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 const navItems = [
   { label: "About", href: "#about" },
@@ -94,31 +94,42 @@ const processSteps = [
 ];
 
 function usePointerParallax() {
-  const [style, setStyle] = useState({
-    "--mx": "0deg",
-    "--my": "0deg",
-    "--tx": "0px",
-    "--ty": "0px",
-  });
+  const targetRef = useRef(null);
 
   useEffect(() => {
-    const handlePointerMove = (event) => {
-      const x = event.clientX / window.innerWidth - 0.5;
-      const y = event.clientY / window.innerHeight - 0.5;
+    let frameId = 0;
+    let pointerX = 0;
+    let pointerY = 0;
 
-      setStyle({
-        "--mx": `${(-y * 10).toFixed(2)}deg`,
-        "--my": `${(x * 12).toFixed(2)}deg`,
-        "--tx": `${(x * 18).toFixed(2)}px`,
-        "--ty": `${(y * 18).toFixed(2)}px`,
-      });
+    const updateParallax = () => {
+      frameId = 0;
+      const target = targetRef.current;
+      if (!target) return;
+
+      target.style.setProperty("--mx", `${(-pointerY * 8).toFixed(2)}deg`);
+      target.style.setProperty("--my", `${(pointerX * 9).toFixed(2)}deg`);
+      target.style.setProperty("--tx", `${(pointerX * 12).toFixed(2)}px`);
+      target.style.setProperty("--ty", `${(pointerY * 12).toFixed(2)}px`);
     };
 
-    window.addEventListener("pointermove", handlePointerMove);
-    return () => window.removeEventListener("pointermove", handlePointerMove);
+    const handlePointerMove = (event) => {
+      pointerX = event.clientX / window.innerWidth - 0.5;
+      pointerY = event.clientY / window.innerHeight - 0.5;
+
+      if (!frameId) {
+        frameId = window.requestAnimationFrame(updateParallax);
+      }
+    };
+
+    window.addEventListener("pointermove", handlePointerMove, { passive: true });
+
+    return () => {
+      window.removeEventListener("pointermove", handlePointerMove);
+      if (frameId) window.cancelAnimationFrame(frameId);
+    };
   }, []);
 
-  return style;
+  return targetRef;
 }
 
 function useScrollReveal() {
@@ -143,28 +154,37 @@ function useScrollReveal() {
 }
 
 function useScrollProgress() {
-  const [progress, setProgress] = useState(0);
-
   useEffect(() => {
+    let frameId = 0;
+
     const updateProgress = () => {
+      frameId = 0;
       const scrollable =
         document.documentElement.scrollHeight - window.innerHeight;
       const nextProgress =
         scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
-      setProgress(Math.min(100, Math.max(0, nextProgress)));
+      document.documentElement.style.setProperty(
+        "--scroll-progress",
+        `${Math.min(100, Math.max(0, nextProgress)) / 100}`,
+      );
+    };
+
+    const requestUpdate = () => {
+      if (!frameId) {
+        frameId = window.requestAnimationFrame(updateProgress);
+      }
     };
 
     updateProgress();
-    window.addEventListener("scroll", updateProgress, { passive: true });
-    window.addEventListener("resize", updateProgress);
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
 
     return () => {
-      window.removeEventListener("scroll", updateProgress);
-      window.removeEventListener("resize", updateProgress);
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+      if (frameId) window.cancelAnimationFrame(frameId);
     };
   }, []);
-
-  return progress;
 }
 
 function AmbientStage() {
@@ -182,10 +202,10 @@ function AmbientStage() {
   );
 }
 
-function ScrollProgress({ progress }) {
+function ScrollProgress() {
   return (
     <div className="scroll-progress" aria-hidden="true">
-      <span style={{ transform: `scaleX(${progress / 100})` }} />
+      <span />
     </div>
   );
 }
@@ -206,12 +226,12 @@ function CodeCube() {
 }
 
 function HeroVisual() {
-  const parallaxStyle = usePointerParallax();
+  const parallaxRef = usePointerParallax();
 
   return (
     <div
+      ref={parallaxRef}
       className="hero-visual animate-fade-up [animation-delay:120ms]"
-      style={parallaxStyle}
     >
       <div className="hologram-orbit">
         {floatingTech.map((item, index) => (
@@ -641,12 +661,12 @@ function Footer() {
 
 export default function App() {
   useScrollReveal();
-  const scrollProgress = useScrollProgress();
+  useScrollProgress();
 
   return (
     <main className="relative">
       <AmbientStage />
-      <ScrollProgress progress={scrollProgress} />
+      <ScrollProgress />
       <Navbar />
       <Hero />
       <WorkflowStrip />
