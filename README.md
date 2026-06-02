@@ -4,7 +4,7 @@ A professional React + Vite developer portfolio for Nitin Kumar, a Computer Scie
 
 ## Live Links
 
-- Portfolio: https://nitinkumar2912.github.io/portfolio/
+- Portfolio: https://portfolio-alpha-smoky-66.vercel.app/
 - GitHub: https://github.com/nitinkumar2912
 - LinkedIn: https://www.linkedin.com/in/nitin-kumar-30790336a/
 - Email: nitinkumar29122501@gmail.com
