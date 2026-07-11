@@ -1,6 +1,6 @@
 # Nitin Kumar Portfolio
 
-A professional React + Vite developer portfolio for Nitin Kumar, a Computer Science student at Delhi Technological University focused on MERN stack development, DSA practice, open source learning, and software engineering internships.
+A professional Next.js portfolio for Nitin Kumar, a Computer Science student at Delhi Technological University focused on MERN stack development, DSA practice, open source learning, and software engineering internships.
 
 ## Live Links
 
@@ -19,14 +19,17 @@ A professional React + Vite developer portfolio for Nitin Kumar, a Computer Scie
 - Open Source Journey section for GitHub collaboration, pull requests, issue tracking, and GSoC preparation
 - DSA roadmap with editable progress tracker and key problem-solving topics
 - Contact section with email, GitHub, LinkedIn, and portfolio links
-- Responsive dark UI with polished hover states, scroll reveal animations, and accessible focus styles
+- Minimal premium dark UI inspired by modern developer portfolios
+- Responsive layout, rounded cards, soft borders, hover lift states, scroll animations, and accessible focus styles
 
 ## Tech Stack
 
-- React
-- Vite
+- Next.js App Router
+- TypeScript
 - Tailwind CSS
-- JavaScript
+- shadcn/ui-style components
+- Framer Motion
+- Lucide React
 
 ## Featured Projects
 
@@ -67,7 +70,7 @@ npm run build
 Preview the production build:
 
 ```bash
-npm run preview
+npm run start
 ```
 
 ## Contact

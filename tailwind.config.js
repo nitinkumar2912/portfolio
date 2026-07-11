@@ -1,27 +1,47 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{js,jsx}"],
+  darkMode: ["class"],
+  content: ["./src/**/*.{ts,tsx}"],
   theme: {
+    container: {
+      center: true,
+      padding: "1rem",
+      screens: {
+        "2xl": "760px",
+      },
+    },
     extend: {
+      colors: {
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        border: "hsl(var(--border))",
+        muted: "hsl(var(--muted))",
+        "muted-foreground": "hsl(var(--muted-foreground))",
+        card: "hsl(var(--card))",
+        "card-foreground": "hsl(var(--card-foreground))",
+        primary: "hsl(var(--primary))",
+        "primary-foreground": "hsl(var(--primary-foreground))",
+      },
       fontFamily: {
-        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ["Inter", "ui-sans-serif", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "sans-serif"],
+        mono: ["Geist Mono", "ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "monospace"],
       },
       boxShadow: {
-        glow: "0 0 40px rgba(59, 130, 246, 0.18)",
-        soft: "0 18px 60px rgba(0, 0, 0, 0.35)",
+        lift: "0 18px 56px rgba(0, 0, 0, 0.28)",
+        glow: "0 0 44px rgba(255, 255, 255, 0.06)",
       },
       animation: {
-        "fade-up": "fadeUp 0.7s ease both",
-        "soft-pulse": "softPulse 7s ease-in-out infinite",
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
       keyframes: {
-        fadeUp: {
-          "0%": { opacity: 0, transform: "translateY(18px)" },
-          "100%": { opacity: 1, transform: "translateY(0)" },
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
-        softPulse: {
-          "0%, 100%": { opacity: 0.55 },
-          "50%": { opacity: 0.85 },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
       },
     },
