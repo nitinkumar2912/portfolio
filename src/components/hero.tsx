@@ -1,6 +1,7 @@
 import { Github, Mail } from "lucide-react";
 
 import { FadeIn } from "@/components/motion";
+import { ProfileLogo } from "@/components/profile-logo";
 import { personal } from "@/data/portfolio";
 
 export function Hero() {
@@ -8,9 +9,7 @@ export function Hero() {
     <section id="about" className="container pt-14 pb-8 sm:pt-20 sm:pb-10">
       <FadeIn className="max-w-2xl">
         <div className="flex items-center gap-4">
-          <div className="grid h-14 w-14 place-items-center rounded-full border border-white/10 bg-white text-base font-semibold text-zinc-950">
-            NK
-          </div>
+          <ProfileLogo className="h-14 w-14 bg-white" priority />
           <div>
             <h1 className="text-xl font-semibold text-zinc-100">{personal.name}</h1>
             <p className="mt-1 text-zinc-500">{personal.role}</p>

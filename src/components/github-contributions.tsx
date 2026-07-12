@@ -16,11 +16,11 @@ type ContributionDay = {
 };
 
 type ContributionsResponse = {
-  total: {
-    lastYear?: number;
-    [key: string]: number | undefined;
-  };
+  total: number;
   contributions: ContributionDay[];
+  fetchedAt: string;
+  source: string;
+  username: string;
 };
 
 const contributionClasses = [
@@ -33,10 +33,23 @@ const contributionClasses = [
 
 function formatDate(date: string) {
   return new Intl.DateTimeFormat("en", {
-    month: "short",
+    month: "long",
     day: "numeric",
     year: "numeric",
   }).format(new Date(`${date}T00:00:00`));
+}
+
+function formatFetchedAt(date: string) {
+  return new Intl.DateTimeFormat("en", {
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  }).format(new Date(date));
+}
+
+function getContributionLabel(day: ContributionDay) {
+  return `${day.count === 0 ? "No" : day.count} contribution${day.count === 1 ? "" : "s"} on ${formatDate(day.date)}`;
 }
 
 function getMonthLabels(contributions: ContributionDay[]) {
@@ -69,13 +82,10 @@ export function GithubContributions() {
         setIsLoading(true);
         setError(null);
 
-        const response = await fetch(
-          `https://github-contributions-api.jogruber.de/v4/${personal.githubUsername}?y=last`,
-          {
-            signal: controller.signal,
-            cache: "no-store",
-          },
-        );
+        const response = await fetch("/api/github-contributions", {
+          signal: controller.signal,
+          cache: "no-store",
+        });
 
         if (!response.ok) {
           throw new Error("GitHub contribution data is unavailable right now.");
@@ -100,7 +110,7 @@ export function GithubContributions() {
 
   const contributions = data?.contributions ?? [];
   const monthLabels = useMemo(() => getMonthLabels(contributions), [contributions]);
-  const total = data?.total.lastYear ?? contributions.reduce((sum, day) => sum + day.count, 0);
+  const total = data?.total ?? contributions.reduce((sum, day) => sum + day.count, 0);
 
   return (
     <Card className="mt-8 overflow-hidden">
@@ -117,6 +127,7 @@ export function GithubContributions() {
                 <span className="font-medium text-zinc-200">{total}</span> contributions in the last year
               </p>
             ) : null}
+            {data ? <p className="mt-1 text-xs text-zinc-600">Synced from GitHub {formatFetchedAt(data.fetchedAt)}</p> : null}
           </div>
           <div className="flex flex-wrap items-center gap-2">
             {data ? <Badge>Real GitHub Data</Badge> : null}
@@ -140,7 +151,7 @@ export function GithubContributions() {
             <p className="mt-2 text-sm text-zinc-500">You can still view the live contribution graph directly on GitHub.</p>
           </div>
         ) : (
-          <div className="mt-8 overflow-x-auto pb-2">
+          <div className="mt-8 overflow-x-auto overflow-y-visible pb-8">
             <div className="min-w-[760px]">
               <div className="relative mb-2 h-5 font-mono text-xs text-zinc-600" aria-hidden="true">
                 {monthLabels.map((month) => (
@@ -159,12 +170,19 @@ export function GithubContributions() {
                 aria-label={`${total} GitHub contributions in the last year`}
               >
                 {contributions.map((day) => (
-                  <span
-                    key={day.date}
-                    className={cn("h-3.5 w-3.5 rounded-[3px] border", contributionClasses[day.level])}
-                    title={`${day.count} contribution${day.count === 1 ? "" : "s"} on ${formatDate(day.date)}`}
-                    aria-label={`${day.count} contribution${day.count === 1 ? "" : "s"} on ${formatDate(day.date)}`}
-                  />
+                  <span key={day.date} className="group relative block h-3.5 w-3.5">
+                    <span
+                      className={cn(
+                        "block h-3.5 w-3.5 rounded-[3px] border transition ring-offset-2 ring-offset-zinc-950 group-hover:ring-1 group-hover:ring-zinc-300/60",
+                        contributionClasses[day.level],
+                      )}
+                      title={getContributionLabel(day)}
+                      aria-label={getContributionLabel(day)}
+                    />
+                    <span className="pointer-events-none absolute bottom-[calc(100%+8px)] left-1/2 z-20 w-max max-w-56 -translate-x-1/2 rounded-md border border-white/10 bg-zinc-950 px-2.5 py-1.5 text-center text-[11px] font-medium leading-4 text-zinc-100 opacity-0 shadow-xl shadow-black/40 transition group-hover:opacity-100">
+                      {getContributionLabel(day)}
+                    </span>
+                  </span>
                 ))}
               </div>
               <div className="mt-4 flex items-center justify-between gap-4 text-xs text-zinc-500">

@@ -2,6 +2,7 @@ import { ArrowUpRight, Github, Mail } from "lucide-react";
 
 import { GithubContributions } from "@/components/github-contributions";
 import { FadeIn } from "@/components/motion";
+import { ProfileLogo } from "@/components/profile-logo";
 import { SectionHeading } from "@/components/section-heading";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -25,9 +26,7 @@ export function AboutSection() {
       <FadeIn className="max-w-2xl">
         <p className="font-mono text-sm text-zinc-500">About</p>
         <div className="mt-5 flex items-center gap-4">
-          <div className="grid h-14 w-14 place-items-center rounded-full border border-white/10 bg-white text-base font-semibold text-zinc-950">
-            NK
-          </div>
+          <ProfileLogo className="h-14 w-14 bg-white" />
           <div>
             <h2 className="text-xl font-semibold text-zinc-100">{personal.name}</h2>
             <p className="mt-1 text-sm text-zinc-500">{personal.role}</p>

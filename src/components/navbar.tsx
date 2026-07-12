@@ -1,5 +1,6 @@
 import { Github, Mail } from "lucide-react";
 
+import { ProfileLogo } from "@/components/profile-logo";
 import { Button } from "@/components/ui/button";
 import { navItems, personal } from "@/data/portfolio";
 
@@ -8,9 +9,7 @@ export function Navbar() {
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0a0a0a]/78 backdrop-blur-xl">
       <nav className="container flex min-h-16 items-center justify-between gap-4">
         <a href="#about" className="flex items-center gap-3" aria-label={`${personal.name} about`}>
-          <span className="grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-white/[0.06] text-sm font-semibold text-white">
-            NK
-          </span>
+          <ProfileLogo className="h-9 w-9" size={36} priority />
           <span className="hidden text-sm font-medium text-zinc-200 sm:inline">{personal.name}</span>
         </a>
 
