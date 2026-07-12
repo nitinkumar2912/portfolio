@@ -44,8 +44,9 @@ function getCountFromTooltip(tooltip: string) {
 }
 
 function parseContributions(html: string) {
+  const currentYear = new Date().getUTCFullYear();
   const dayTags = html.match(/<td\b(?=[^>]*ContributionCalendar-day)(?=[^>]*data-date="[^"]+")[^>]*>/g) ?? [];
-  const days = dayTags
+  const allDays = dayTags
     .map((tag): ContributionDay | null => {
       const date = getAttribute(tag, "data-date");
       const id = getAttribute(tag, "id");
@@ -64,8 +65,10 @@ function parseContributions(html: string) {
     })
     .filter((day): day is ContributionDay => Boolean(day))
     .sort((a, b) => a.date.localeCompare(b.date));
+  const days = allDays.filter((day) => day.date.startsWith(`${currentYear}-`));
 
   return {
+    year: currentYear,
     total: days.reduce((sum, day) => sum + day.count, 0),
     contributions: days,
   };

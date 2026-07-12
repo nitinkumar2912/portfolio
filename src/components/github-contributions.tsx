@@ -1,11 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ArrowUpRight, Github, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { personal } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
 
@@ -16,6 +13,7 @@ type ContributionDay = {
 };
 
 type ContributionsResponse = {
+  year: number;
   total: number;
   contributions: ContributionDay[];
   fetchedAt: string;
@@ -24,11 +22,11 @@ type ContributionsResponse = {
 };
 
 const contributionClasses = [
-  "bg-zinc-900 border-white/[0.04]",
-  "bg-zinc-700 border-white/[0.07]",
-  "bg-zinc-500 border-white/[0.09]",
-  "bg-zinc-300 border-white/[0.12]",
-  "bg-white border-white/20",
+  "bg-zinc-900/70 border-zinc-800/80",
+  "bg-zinc-700 border-zinc-700",
+  "bg-zinc-500 border-zinc-500",
+  "bg-zinc-300 border-zinc-300",
+  "bg-white border-white",
 ];
 
 function formatDate(date: string) {
@@ -39,15 +37,6 @@ function formatDate(date: string) {
   }).format(new Date(`${date}T00:00:00`));
 }
 
-function formatFetchedAt(date: string) {
-  return new Intl.DateTimeFormat("en", {
-    month: "short",
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-  }).format(new Date(date));
-}
-
 function getContributionLabel(day: ContributionDay) {
   return `${day.count === 0 ? "No" : day.count} contribution${day.count === 1 ? "" : "s"} on ${formatDate(day.date)}`;
 }
@@ -56,17 +45,31 @@ function getMonthLabels(contributions: ContributionDay[]) {
   const labels: Array<{ label: string; column: number }> = [];
   let previousMonth = "";
 
-  contributions.forEach((day, index) => {
+  contributions.forEach((day) => {
     const currentDate = new Date(`${day.date}T00:00:00`);
     const month = currentDate.toLocaleString("en", { month: "short" });
 
     if (month !== previousMonth) {
-      labels.push({ label: month, column: Math.floor(index / 7) + 1 });
+      labels.push({ label: month, column: getCalendarPosition(day.date).column });
       previousMonth = month;
     }
   });
 
   return labels;
+}
+
+function getCalendarPosition(date: string) {
+  const currentDate = new Date(`${date}T00:00:00`);
+  const yearStart = new Date(currentDate.getFullYear(), 0, 1);
+  const firstSunday = new Date(yearStart);
+  firstSunday.setDate(yearStart.getDate() - yearStart.getDay());
+
+  const daysSinceFirstSunday = Math.floor((currentDate.getTime() - firstSunday.getTime()) / 86_400_000);
+
+  return {
+    column: Math.floor(daysSinceFirstSunday / 7) + 1,
+    row: currentDate.getDay() + 1,
+  };
 }
 
 export function GithubContributions() {
@@ -111,94 +114,89 @@ export function GithubContributions() {
   const contributions = data?.contributions ?? [];
   const monthLabels = useMemo(() => getMonthLabels(contributions), [contributions]);
   const total = data?.total ?? contributions.reduce((sum, day) => sum + day.count, 0);
+  const year = data?.year ?? new Date().getFullYear();
+  const columnCount = useMemo(
+    () => contributions.reduce((max, day) => Math.max(max, getCalendarPosition(day.date).column), 0),
+    [contributions],
+  );
 
   return (
-    <Card className="mt-8 overflow-hidden">
-      <CardContent>
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-          <div>
-            <p className="font-mono text-sm text-zinc-500">Profile</p>
-            <a className="mt-1 inline-flex items-center gap-2 text-zinc-100 hover:underline" href={personal.github} target="_blank" rel="noreferrer">
-              {personal.githubLabel}
-              <ArrowUpRight className="h-4 w-4" />
-            </a>
-            {data ? (
-              <p className="mt-3 text-sm text-zinc-500">
-                <span className="font-medium text-zinc-200">{total}</span> contributions in the last year
-              </p>
-            ) : null}
-            {data ? <p className="mt-1 text-xs text-zinc-600">Synced from GitHub {formatFetchedAt(data.fetchedAt)}</p> : null}
-          </div>
-          <div className="flex flex-wrap items-center gap-2">
-            {data ? <Badge>Real GitHub Data</Badge> : null}
-            <Button asChild variant="secondary">
-              <a href={personal.github} target="_blank" rel="noreferrer">
-                <Github className="h-4 w-4" />
-                View GitHub
-              </a>
-            </Button>
-          </div>
+    <div className="mt-8 max-w-[720px] overflow-x-auto overflow-y-visible pb-6">
+      {isLoading ? (
+        <div className="flex h-32 items-center text-sm text-zinc-500">
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          Loading GitHub contributions...
         </div>
-
-        {isLoading ? (
-          <div className="mt-8 flex min-h-40 items-center justify-center rounded-xl border border-white/10 bg-white/[0.025] text-sm text-zinc-500">
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            Loading real contributions...
-          </div>
-        ) : error ? (
-          <div className="mt-8 rounded-xl border border-white/10 bg-white/[0.025] p-5">
-            <p className="text-sm leading-6 text-zinc-400">{error}</p>
-            <p className="mt-2 text-sm text-zinc-500">You can still view the live contribution graph directly on GitHub.</p>
-          </div>
-        ) : (
-          <div className="mt-8 overflow-x-auto overflow-y-visible pb-8">
-            <div className="min-w-[760px]">
-              <div className="relative mb-2 h-5 font-mono text-xs text-zinc-600" aria-hidden="true">
-                {monthLabels.map((month) => (
-                  <span
-                    key={`${month.label}-${month.column}`}
-                    className="absolute"
-                    style={{ left: `${(month.column - 1) * 18}px` }}
-                  >
-                    {month.label}
-                  </span>
-                ))}
-              </div>
-              <div
-                className="grid grid-flow-col grid-rows-7 gap-1"
-                style={{ gridAutoColumns: "14px" }}
-                aria-label={`${total} GitHub contributions in the last year`}
+      ) : error ? (
+        <div className="text-sm leading-6 text-zinc-500">
+          {error}{" "}
+          <a className="underline decoration-zinc-500 underline-offset-4 hover:text-zinc-200" href={personal.github} target="_blank" rel="noreferrer">
+            View GitHub.
+          </a>
+        </div>
+      ) : (
+        <div className="w-max min-w-[690px]">
+          <div className="relative mb-2 h-5 text-sm font-medium text-zinc-300" aria-hidden="true">
+            {monthLabels.map((month) => (
+              <span
+                key={`${month.label}-${month.column}`}
+                className="absolute"
+                style={{ left: `${(month.column - 1) * 16}px` }}
               >
-                {contributions.map((day) => (
-                  <span key={day.date} className="group relative block h-3.5 w-3.5">
-                    <span
-                      className={cn(
-                        "block h-3.5 w-3.5 rounded-[3px] border transition ring-offset-2 ring-offset-zinc-950 group-hover:ring-1 group-hover:ring-zinc-300/60",
-                        contributionClasses[day.level],
-                      )}
-                      title={getContributionLabel(day)}
-                      aria-label={getContributionLabel(day)}
-                    />
-                    <span className="pointer-events-none absolute bottom-[calc(100%+8px)] left-1/2 z-20 w-max max-w-56 -translate-x-1/2 rounded-md border border-white/10 bg-zinc-950 px-2.5 py-1.5 text-center text-[11px] font-medium leading-4 text-zinc-100 opacity-0 shadow-xl shadow-black/40 transition group-hover:opacity-100">
-                      {getContributionLabel(day)}
-                    </span>
+                {month.label}
+              </span>
+            ))}
+          </div>
+          <div
+            className="grid gap-1"
+            style={{
+              gridTemplateColumns: `repeat(${columnCount}, 12px)`,
+              gridTemplateRows: "repeat(7, 12px)",
+            }}
+            aria-label={`${total} GitHub contributions in ${year}`}
+          >
+            {contributions.map((day) => {
+              const position = getCalendarPosition(day.date);
+
+              return (
+                <span
+                  key={day.date}
+                  className="group relative block h-3 w-3"
+                  style={{ gridColumnStart: position.column, gridRowStart: position.row }}
+                >
+                  <span
+                    className={cn(
+                      "block h-3 w-3 rounded-[2px] border transition group-hover:ring-1 group-hover:ring-zinc-200/70",
+                      contributionClasses[day.level],
+                    )}
+                    title={getContributionLabel(day)}
+                    aria-label={getContributionLabel(day)}
+                  />
+                  <span className="pointer-events-none absolute bottom-[calc(100%+8px)] left-1/2 z-20 w-max max-w-56 -translate-x-1/2 rounded-md border border-white/10 bg-zinc-950 px-2.5 py-1.5 text-center text-[11px] font-medium leading-4 text-zinc-100 opacity-0 shadow-xl shadow-black/40 transition group-hover:opacity-100">
+                    {getContributionLabel(day)}
                   </span>
-                ))}
-              </div>
-              <div className="mt-4 flex items-center justify-between gap-4 text-xs text-zinc-500">
-                <span>Last 12 months</span>
-                <span className="flex items-center gap-2">
-                  Less
-                  {contributionClasses.map((className, index) => (
-                    <span key={className} className={cn("h-3 w-3 rounded-[3px] border", className)} aria-label={`Contribution intensity ${index}`} />
-                  ))}
-                  More
                 </span>
-              </div>
+              );
+            })}
+          </div>
+          <div className="mt-3 flex items-center justify-between gap-4 text-sm text-zinc-500">
+            <p>
+              <span className="text-zinc-400">{total}</span> contributions in {year} on{" "}
+              <a className="underline decoration-zinc-500 underline-offset-4 hover:text-zinc-200" href={personal.github} target="_blank" rel="noreferrer">
+                GitHub
+              </a>
+              .
+            </p>
+            <div className="flex shrink-0 items-center gap-1.5" aria-label="Contribution intensity legend">
+              <span>Less</span>
+              {contributionClasses.map((className, index) => (
+                <span key={className} className={cn("h-3 w-3 rounded-[2px] border", className)} aria-label={`Contribution intensity ${index}`} />
+              ))}
+              <span>More</span>
             </div>
           </div>
-        )}
-      </CardContent>
-    </Card>
+        </div>
+      )}
+    </div>
   );
 }
