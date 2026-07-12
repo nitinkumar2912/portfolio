@@ -10,6 +10,9 @@ type ContributionDay = {
 
 const CONTRIBUTIONS_URL = `https://github.com/users/${personal.githubUsername}/contributions`;
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 function escapeRegExp(value: string) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
@@ -95,18 +98,34 @@ export async function GET() {
       throw new Error("GitHub returned an empty contribution calendar.");
     }
 
-    return NextResponse.json({
-      ...data,
-      username: personal.githubUsername,
-      source: CONTRIBUTIONS_URL,
-      fetchedAt: new Date().toISOString(),
-    });
+    return NextResponse.json(
+      {
+        ...data,
+        username: personal.githubUsername,
+        source: CONTRIBUTIONS_URL,
+        fetchedAt: new Date().toISOString(),
+      },
+      {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+          Pragma: "no-cache",
+          Expires: "0",
+        },
+      },
+    );
   } catch (error) {
     return NextResponse.json(
       {
         error: error instanceof Error ? error.message : "Could not load GitHub contributions.",
       },
-      { status: 502 },
+      {
+        status: 502,
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+          Pragma: "no-cache",
+          Expires: "0",
+        },
+      },
     );
   }
 }
