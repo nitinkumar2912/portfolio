@@ -17,7 +17,7 @@ import {
   projects,
   skillGroups,
   socialLinks,
-  techStack,
+  techLogos,
 } from "@/data/portfolio";
 
 export function AboutSection() {
@@ -56,8 +56,14 @@ export function ProjectsSection() {
         {projects.map((project, index) => (
           <FadeIn key={project.title} delay={index * 0.08}>
             <article className="card-hover h-full border border-dashed border-white/15 bg-white/[0.02] p-3">
-              <a href={project.demo} target="_blank" rel="noopener noreferrer" className="group block" aria-label={`${project.title} live demo`}>
-                <div className="grid aspect-[16/8.5] place-items-center bg-black">
+              <a href={project.demo || project.github} target="_blank" rel="noopener noreferrer" className="group block" aria-label={`${project.title} ${project.demo ? "live demo" : "source code"}`}>
+                <div className="relative grid aspect-[16/8.5] place-items-center bg-black">
+                  {!project.demo && (
+                    <span className="absolute top-2 right-2 inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/[0.08] px-2 py-0.5 text-[10px] font-medium text-emerald-400">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 pulse-dot" />
+                      In active development
+                    </span>
+                  )}
                   <div className="text-center">
                     <p className="text-sm font-medium text-zinc-100">{project.title}</p>
                     <p className="mx-auto mt-2 max-w-48 text-xs leading-4 text-zinc-500">{project.summary}</p>
@@ -73,16 +79,20 @@ export function ProjectsSection() {
                   <span className="truncate">{project.title}</span>
                 </h3>
                 <div className="flex shrink-0 items-center gap-3 text-sm text-zinc-400">
-                  <a
-                    href={project.demo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 transition hover:text-zinc-100"
-                    aria-label={`${project.title} live demo`}
-                  >
-                    Demo
-                    <ArrowUpRight className="h-3 w-3" />
-                  </a>
+                  {project.demo ? (
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 transition hover:text-zinc-100"
+                      aria-label={`${project.title} live demo`}
+                    >
+                      Demo
+                      <ArrowUpRight className="h-3 w-3" />
+                    </a>
+                  ) : (
+                    <span className="text-emerald-400/70 text-xs font-medium">In Progress</span>
+                  )}
                   <a
                     href={project.github}
                     target="_blank"
@@ -96,7 +106,16 @@ export function ProjectsSection() {
                 </div>
               </div>
 
-              <p className="mt-3 text-sm leading-6 text-zinc-500">{project.summary}</p>
+              <div className="mt-3 space-y-3 text-sm leading-6 text-zinc-500">
+                <p>
+                  <span className="font-semibold text-zinc-100">The problem.</span>{" "}
+                  {project.problem}
+                </p>
+                <p>
+                  <span className="font-semibold text-zinc-100">What I built.</span>{" "}
+                  {project.built}
+                </p>
+              </div>
 
               {/* Tech stack badges */}
               <div className="mt-3 flex flex-wrap gap-1.5">
@@ -155,16 +174,32 @@ export function SkillsSection() {
   );
 }
 
-export function TechStackSection() {
+export function TechLogosRow() {
   return (
-    <section id="tech-stack" className="section-py container">
-      <SectionHeading eyebrow="Tech Stack" title="Tools I use to ship" />
-      <FadeIn className="mt-8 flex flex-wrap gap-2">
-        {techStack.map((item) => (
-          <Badge key={item} className="px-3 py-1.5 font-mono text-sm">
-            {item}
-          </Badge>
-        ))}
+    <section className="section-py container">
+      <FadeIn>
+        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+          {techLogos.map((tech) => (
+            <div
+              key={tech.name}
+              className="group relative grid h-12 w-12 place-items-center rounded-xl bg-zinc-800/80 transition hover:bg-zinc-700/80 sm:h-14 sm:w-14"
+              title={tech.name}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={tech.icon}
+                alt={tech.name}
+                width={28}
+                height={28}
+                className="h-7 w-7 sm:h-8 sm:w-8"
+                loading="lazy"
+              />
+              <span className="pointer-events-none absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-0.5 text-[10px] font-medium text-zinc-400 opacity-0 transition group-hover:opacity-100">
+                {tech.name}
+              </span>
+            </div>
+          ))}
+        </div>
       </FadeIn>
     </section>
   );

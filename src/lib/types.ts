@@ -18,6 +18,8 @@ export type Project = {
   readonly label: string;
   readonly summary: string;
   readonly description: string;
+  readonly problem: string;
+  readonly built: string;
   readonly features: readonly string[];
   readonly stack: readonly string[];
   readonly github: string;

@@ -1,12 +1,46 @@
 "use client";
 
-import { FileText, Github } from "lucide-react";
+import { ArrowUpRight, Github } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { ProfileLogo } from "@/components/profile-logo";
 import { Button } from "@/components/ui/button";
 import { navItems, personal } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
+
+function TypewriterName({ text }: { text: string }) {
+  const [typedText, setTypedText] = useState("");
+
+  useEffect(() => {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) {
+      setTypedText(text);
+      return;
+    }
+
+    setTypedText("");
+    let index = 0;
+    const interval = window.setInterval(() => {
+      index += 1;
+      setTypedText(text.slice(0, index));
+
+      if (index >= text.length) {
+        window.clearInterval(interval);
+      }
+    }, 95);
+
+    return () => window.clearInterval(interval);
+  }, [text]);
+
+  return (
+    <span className="hidden min-w-[5.8rem] whitespace-nowrap text-sm font-medium text-zinc-200 sm:inline-flex">
+      <span>{typedText}</span>
+      <span className="typewriter-cursor ml-0.5" aria-hidden="true">
+        |
+      </span>
+    </span>
+  );
+}
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -32,12 +66,16 @@ export function Navbar() {
       )}
     >
       <nav className="container flex min-h-16 items-center justify-between gap-4" aria-label="Main navigation">
-        <a href="#about" className="flex items-center gap-3" aria-label={`${personal.name} — go to about section`}>
-          <ProfileLogo className="h-9 w-9" size={36} priority />
-          <span className="hidden text-sm font-medium text-zinc-200 sm:inline">{personal.name}</span>
+        <a
+          href="#about"
+          className="group flex min-w-0 items-center gap-3 text-zinc-200 transition hover:text-white"
+          aria-label={`${personal.name} — go to about section`}
+        >
+          <ProfileLogo className="h-9 w-9 shrink-0" size={36} priority />
+          <TypewriterName text={personal.name} />
         </a>
 
-        <div className="hidden items-center gap-1 md:flex">
+        <div className="hidden items-center gap-2 md:flex">
           {navItems.map((item) => (
             <a key={item.href} href={item.href} className="rounded-full px-3 py-2 text-sm text-zinc-500 transition hover:text-zinc-100">
               {item.label}
@@ -51,10 +89,10 @@ export function Navbar() {
               <Github className="h-4 w-4" />
             </a>
           </Button>
-          <Button asChild variant="secondary" size="sm">
+          <Button asChild variant="ghost" size="sm" className="text-zinc-500 hover:text-zinc-100">
             <a href={personal.resume} target="_blank" rel="noopener noreferrer" aria-label="View resume">
-              <FileText className="h-4 w-4" />
               Resume
+              <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
           </Button>
         </div>

@@ -95,6 +95,10 @@ export const projects: readonly Project[] = [
     summary: "A MERN job tracker for internship applications, notes, analytics, and follow-ups.",
     description:
       "A production-ready MERN job application tracker built for managing internship and placement pipelines with authentication, analytics, notes, reminders, and deployment-ready architecture.",
+    problem:
+      "Tracking internship applications across spreadsheets, emails, and bookmarks falls apart fast. You lose follow-up dates, forget which recruiter you spoke to, and have no clear picture of where each application stands.",
+    built:
+      "A full-stack MERN application with JWT authentication, a Kanban pipeline board, analytics dashboard, interview notes, recruiter tracking, and follow-up reminders. Data lives in MongoDB Atlas, the API runs on Express with Render, and the React frontend is deployed on Vercel.",
     features: [
       "JWT Authentication",
       "MongoDB Atlas",
@@ -118,6 +122,10 @@ export const projects: readonly Project[] = [
     summary: "A clean JavaScript task app with projects, due dates, reusable modules, and local storage.",
     description:
       "A modular task management application focused on project organization, due date scheduling, persistent task data, and a clean component-based interface.",
+    problem:
+      "Most to-do apps either oversimplify tasks into a flat list or overwhelm with features. Students and developers need something in between — project-level grouping, due dates, and persistence without sign-up friction.",
+    built:
+      "A modular vanilla JavaScript app with Webpack, organized around project folders, due-date scheduling with date-fns, and local storage persistence. Components are reusable and the architecture is clean enough to extend without a framework.",
     features: [
       "Project Organization",
       "Due Date Scheduling",
@@ -129,6 +137,35 @@ export const projects: readonly Project[] = [
     stack: ["JavaScript", "Webpack", "date-fns", "Local Storage"],
     github: "https://github.com/nitinkumar2912/TopTodo",
     demo: "https://nitinkumar2912.github.io/TopTodo/",
+    featured: false,
+  },
+  {
+    title: "Ghub Chatify",
+    label: "Real-Time Chat Application",
+    summary: "A full-featured real-time chat app with custom JWT auth, Socket.io messaging, and cloud deployments.",
+    description:
+      "A production-grade real-time chat platform with custom authentication, presence indicators, image uploads, and a polished React UI.",
+    problem:
+      "Most chat tutorials skip the hard parts — custom auth, real-time presence, rate limiting, and production deployment. Building a chat app that handles all of these end-to-end is the gap between a tutorial project and a real product.",
+    built:
+      "A real-time messaging platform with custom JWT authentication, Socket.io for instant messaging, online/offline presence indicators, typing and notification sounds, Cloudinary image uploads, welcome emails via Resend, and Arcjet-powered API rate limiting. The frontend uses React with Tailwind CSS, DaisyUI, and Zustand for state management.",
+    features: [
+      "Custom JWT Authentication",
+      "Real-time Messaging (Socket.io)",
+      "Online/Offline Presence",
+      "Notification & Typing Sounds",
+      "Welcome Emails (Resend)",
+      "Image Uploads (Cloudinary)",
+      "REST API (Express)",
+      "MongoDB Persistence",
+      "API Rate-Limiting (Arcjet)",
+      "Zustand State Management",
+      "DaisyUI Components",
+      "Sevalla Deployment",
+    ],
+    stack: ["React", "Node.js", "Express.js", "MongoDB", "Socket.io", "Tailwind CSS", "Zustand", "Cloudinary"],
+    github: "https://github.com/nitinkumar2912/Ghub-chatify-app",
+    demo: "",
     featured: false,
   },
 ];
@@ -147,22 +184,23 @@ export const skillGroups: readonly SkillGroup[] = [
   },
 ];
 
-export const techStack: readonly string[] = [
-  "React",
-  "Vite",
-  "Tailwind CSS",
-  "JavaScript",
-  "Node.js",
-  "Express.js",
-  "MongoDB Atlas",
-  "REST APIs",
-  "JWT Authentication",
-  "Git",
-  "GitHub",
-  "Postman",
-  "VS Code",
-  "Render",
-  "Vercel",
+export const techLogos: readonly { readonly name: string; readonly icon: string }[] = [
+  { name: "C", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" },
+  { name: "C++", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" },
+  { name: "HTML5", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
+  { name: "CSS3", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
+  { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
+  { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+  { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+  { name: "Express", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" },
+  { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
+  { name: "Tailwind CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" },
+  { name: "Vite", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg" },
+  { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
+  { name: "GitHub", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
+  { name: "VS Code", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" },
+  { name: "Postman", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg" },
+  { name: "Vercel", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg" },
 ];
 
 export const education: readonly EducationItem[] = [

@@ -3,7 +3,6 @@ import type { ReactNode } from "react";
 
 import "@/app/globals.css";
 import { ParticleField } from "@/components/particle-field";
-import { ScrollBlurEffect } from "@/components/scroll-effects";
 import { personal } from "@/data/portfolio";
 
 const description =
@@ -97,7 +96,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <div className="orb orb-2" />
           <div className="orb orb-3" />
         </div>
-        <ScrollBlurEffect />
         {children}
       </body>
     </html>

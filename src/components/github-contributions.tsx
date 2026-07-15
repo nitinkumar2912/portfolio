@@ -119,7 +119,7 @@ export function GithubContributions() {
   );
 
   return (
-    <div className="mt-8 max-w-[720px] overflow-x-auto overflow-y-visible pb-6">
+    <div className="mt-8 overflow-x-auto overflow-y-visible pb-6">
       {isLoading ? (
         <div className="flex h-32 items-center text-sm text-zinc-500">
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />

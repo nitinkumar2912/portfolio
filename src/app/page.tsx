@@ -7,6 +7,7 @@ import {
   GithubContributionsSection,
   ProjectsSection,
   SkillsSection,
+  TechLogosRow,
 } from "@/components/sections";
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
       <Hero />
       <ProjectsSection />
       <SkillsSection />
+      <TechLogosRow />
       <GithubContributionsSection />
       <CertificationsSection />
       <ContactSection />
