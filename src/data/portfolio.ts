@@ -4,6 +4,7 @@ import {
   Brain,
   Code2,
   Database,
+  FileText,
   Github,
   GraduationCap,
   Layers3,
@@ -15,6 +16,8 @@ import {
   Terminal,
   Wrench,
 } from "lucide-react";
+
+import type { EducationItem, Project, SkillGroup, SocialLink } from "@/lib/types";
 
 export const personal = {
   name: "Nitin Kumar",
@@ -29,16 +32,15 @@ export const personal = {
   linkedinLabel: "linkedin.com/in/nitin-kumar-30790336a",
   educationSummary: "Delhi Technological University",
   location: "Delhi Technological University",
-  // TODO: Add a resume URL when the current portfolio includes one.
-  resume: "",
-};
+  resume: "https://drive.google.com/file/d/1Oa_r-ZJj5R8F5nMu7Q-ZTZFPBvQD3W8B/view?usp=drive_link",
+} as const;
 
-export const navItems = [
+export const navItems: readonly { readonly label: string; readonly href: string }[] = [
   { label: "About", href: "#about" },
   { label: "Projects", href: "#projects" },
   { label: "Skills", href: "#skills" },
   { label: "Contact", href: "#contact" },
-];
+] as const;
 
 export const about = {
   title: "About me",
@@ -47,8 +49,8 @@ export const about = {
   points: [
     "I work with React, Node.js, Express, MongoDB, authentication, and deployments.",
     "I like simple interfaces, readable code, and projects that solve real problems.",
-  ],
-};
+  ] as const,
+} as const;
 
 export const highlights = [
   {
@@ -66,7 +68,7 @@ export const highlights = [
     value: "Clean Delivery",
     detail: "Readable code, version control, API testing, and production-minded iteration.",
   },
-];
+] as const;
 
 export const experience = [
   {
@@ -84,9 +86,9 @@ export const experience = [
     stack: ["React", "Node.js", "Express.js", "MongoDB Atlas", "JWT", "GitHub"],
   },
   // TODO: Add professional roles, companies, dates, and achievements when the current portfolio includes them.
-];
+] as const;
 
-export const projects = [
+export const projects: readonly Project[] = [
   {
     title: "JobTrackr",
     label: "Featured MERN Project",
@@ -131,7 +133,7 @@ export const projects = [
   },
 ];
 
-export const skillGroups = [
+export const skillGroups: readonly SkillGroup[] = [
   { title: "Languages", icon: Code2, items: ["C++", "JavaScript", "SQL", "HTML", "CSS"] },
   { title: "Frontend", icon: Layers3, items: ["React", "Vite", "Tailwind CSS"] },
   { title: "Backend", icon: Server, items: ["Node.js", "Express.js", "REST APIs", "JWT Authentication"] },
@@ -145,7 +147,7 @@ export const skillGroups = [
   },
 ];
 
-export const techStack = [
+export const techStack: readonly string[] = [
   "React",
   "Vite",
   "Tailwind CSS",
@@ -163,7 +165,7 @@ export const techStack = [
   "Vercel",
 ];
 
-export const education = [
+export const education: readonly EducationItem[] = [
   {
     school: "Delhi Technological University",
     program: "Computer Science student",
@@ -173,7 +175,7 @@ export const education = [
   // TODO: Add degree duration, CGPA, coursework, or earlier education when the current portfolio includes it.
 ];
 
-export const openSourceItems = [
+export const openSourceItems: readonly { readonly title: string; readonly copy: string }[] = [
   {
     title: "Workflow Foundations",
     copy: "Reading repositories, issues, and pull requests to understand how real teams collaborate.",
@@ -192,7 +194,7 @@ export const dsa = {
   total: "150+",
   label: "DSA Problems",
   focus: "Problem solving, pattern recognition, and interview preparation.",
-  topics: ["Arrays", "Strings", "Linked Lists", "Stacks & Queues", "Trees", "Binary Search", "Graphs", "Dynamic Programming"],
+  topics: ["Arrays", "Strings", "Linked Lists", "Stacks & Queues", "Trees", "Binary Search", "Graphs", "Dynamic Programming"] as const,
   cards: [
     {
       title: "Problem Solving",
@@ -206,27 +208,27 @@ export const dsa = {
       title: "Current Focus",
       content: "Dynamic Programming, Graphs, and advanced problem-solving patterns.",
     },
-  ],
-};
+  ] as const,
+} as const;
 
-export const certifications: string[] = [
+export const certifications: readonly string[] = [
   // TODO: Add certifications when the current portfolio includes them.
 ];
 
-export const socialLinks = [
+export const socialLinks: readonly SocialLink[] = [
   { label: "Email", href: `mailto:${personal.email}`, value: personal.email, icon: Mail },
   { label: "GitHub", href: personal.github, value: personal.githubLabel, icon: Github },
   { label: "LinkedIn", href: personal.linkedin, value: personal.linkedinLabel, icon: Linkedin },
-  { label: "Portfolio", href: personal.portfolio, value: "nitinkumar2912.github.io/portfolio", icon: Sparkles },
+  { label: "Resume", href: personal.resume, value: "View Resume", icon: FileText },
 ];
 
 export const footerMeta = {
-  stack: "Built with Next.js, TypeScript, Tailwind CSS, shadcn/ui, Framer Motion, and Lucide React.",
-  source: "Personal information preserved from the existing portfolio project.",
-};
+  source: "Designed and built by Nitin Kumar.",
+} as const;
 
 export const iconMap = {
   book: BookOpen,
   rocket: Rocket,
   terminal: Terminal,
-};
+  sparkles: Sparkles,
+} as const;

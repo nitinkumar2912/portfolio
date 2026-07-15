@@ -108,10 +108,97 @@ a {
     linear-gradient(to top, rgba(255, 255, 255, 0.55) 1px, transparent 1px) 100% 100% / 18px 18px no-repeat;
 }
 
+/* ─── Availability pulse dot ─── */
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.5);
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 0 4px rgba(52, 211, 153, 0);
+  }
+}
+
+.pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* ─── Tech badge (borderless, subtle hover) ─── */
+.tech-badge {
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.tech-badge:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ─── Floating ambient orbs ─── */
+@keyframes float-orb-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(80px, 50px) scale(1.06); }
+  50% { transform: translate(30px, -70px) scale(0.94); }
+  75% { transform: translate(-60px, 25px) scale(1.03); }
+}
+
+@keyframes float-orb-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-70px, 55px) scale(1.08); }
+  66% { transform: translate(50px, -45px) scale(0.95); }
+}
+
+@keyframes float-orb-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  20% { transform: translate(65px, -35px) scale(1.05); }
+  40% { transform: translate(-35px, 65px) scale(0.96); }
+  60% { transform: translate(-65px, -25px) scale(1.07); }
+  80% { transform: translate(45px, 35px) scale(0.97); }
+}
+
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.orb-1 {
+  width: 500px;
+  height: 500px;
+  top: -15%;
+  left: -8%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.03), transparent 70%);
+  filter: blur(80px);
+  animation: float-orb-1 28s ease-in-out infinite;
+}
+
+.orb-2 {
+  width: 420px;
+  height: 420px;
+  top: 42%;
+  right: -12%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.022), transparent 70%);
+  filter: blur(90px);
+  animation: float-orb-2 35s ease-in-out infinite;
+}
+
+.orb-3 {
+  width: 460px;
+  height: 460px;
+  bottom: -10%;
+  left: 22%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.02), transparent 70%);
+  filter: blur(100px);
+  animation: float-orb-3 24s ease-in-out infinite;
+}
+
 @media (max-width: 640px) {
   .section-py {
     padding-block: 2.25rem;
   }
+
+  .orb { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -127,4 +214,6 @@ a {
   .card-hover:hover {
     transform: none;
   }
+
+  .orb { display: none; }
 }

@@ -4,22 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 import { Loader2 } from "lucide-react";
 
 import { personal } from "@/data/portfolio";
+import type { ContributionDay, ContributionsResponse } from "@/lib/types";
 import { cn } from "@/lib/utils";
-
-type ContributionDay = {
-  date: string;
-  count: number;
-  level: 0 | 1 | 2 | 3 | 4;
-};
-
-type ContributionsResponse = {
-  year: number;
-  total: number;
-  contributions: ContributionDay[];
-  fetchedAt: string;
-  source: string;
-  username: string;
-};
 
 const contributionClasses = [
   "bg-zinc-900/70 border-zinc-800/80",
@@ -72,6 +58,21 @@ function getCalendarPosition(date: string) {
   };
 }
 
+async function fetchWithRetry(url: string, retries = 1): Promise<Response> {
+  try {
+    const response = await fetch(url);
+    if (!response.ok && retries > 0) {
+      return fetchWithRetry(url, retries - 1);
+    }
+    return response;
+  } catch (error) {
+    if (retries > 0) {
+      return fetchWithRetry(url, retries - 1);
+    }
+    throw error;
+  }
+}
+
 export function GithubContributions() {
   const [data, setData] = useState<ContributionsResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -85,10 +86,7 @@ export function GithubContributions() {
         setIsLoading(true);
         setError(null);
 
-        const response = await fetch("/api/github-contributions", {
-          signal: controller.signal,
-          cache: "no-store",
-        });
+        const response = await fetchWithRetry("/api/github-contributions");
 
         if (!response.ok) {
           throw new Error("GitHub contribution data is unavailable right now.");
@@ -130,7 +128,7 @@ export function GithubContributions() {
       ) : error ? (
         <div className="text-sm leading-6 text-zinc-500">
           {error}{" "}
-          <a className="underline decoration-zinc-500 underline-offset-4 hover:text-zinc-200" href={personal.github} target="_blank" rel="noreferrer">
+          <a className="underline decoration-zinc-500 underline-offset-4 hover:text-zinc-200" href={personal.github} target="_blank" rel="noopener noreferrer">
             View GitHub.
           </a>
         </div>
@@ -182,7 +180,7 @@ export function GithubContributions() {
           <div className="mt-3 flex items-center justify-between gap-4 text-sm text-zinc-500">
             <p>
               <span className="text-zinc-400">{total}</span> contributions in {year} on{" "}
-              <a className="underline decoration-zinc-500 underline-offset-4 hover:text-zinc-200" href={personal.github} target="_blank" rel="noreferrer">
+              <a className="underline decoration-zinc-500 underline-offset-4 hover:text-zinc-200" href={personal.github} target="_blank" rel="noopener noreferrer">
                 GitHub
               </a>
               .

@@ -1,17 +1,26 @@
 import { NextResponse } from "next/server";
 
 import { personal } from "@/data/portfolio";
-
-type ContributionDay = {
-  date: string;
-  count: number;
-  level: 0 | 1 | 2 | 3 | 4;
-};
+import type { ContributionDay } from "@/lib/types";
 
 const CONTRIBUTIONS_URL = `https://github.com/users/${personal.githubUsername}/contributions`;
+const FETCH_TIMEOUT_MS = 8_000;
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
+
+// ---------------------------------------------------------------------------
+// In-memory cache to avoid scraping GitHub on every client request.
+// ---------------------------------------------------------------------------
+let cachedData: {
+  payload: Record<string, unknown>;
+  expiresAt: number;
+} | null = null;
+
+// ---------------------------------------------------------------------------
+// HTML parsing helpers
+// ---------------------------------------------------------------------------
 
 function escapeRegExp(value: string) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -77,15 +86,34 @@ function parseContributions(html: string) {
   };
 }
 
+// ---------------------------------------------------------------------------
+// Route handler
+// ---------------------------------------------------------------------------
+
 export async function GET() {
+  // Return cached data if fresh
+  if (cachedData && Date.now() < cachedData.expiresAt) {
+    return NextResponse.json(cachedData.payload, {
+      headers: {
+        "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
+      },
+    });
+  }
+
   try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+
     const response = await fetch(CONTRIBUTIONS_URL, {
       headers: {
         Accept: "text/html",
         "User-Agent": "nitin-kumar-portfolio",
       },
       cache: "no-store",
+      signal: controller.signal,
     });
+
+    clearTimeout(timeout);
 
     if (!response.ok) {
       throw new Error("GitHub contribution data is unavailable right now.");
@@ -98,22 +126,34 @@ export async function GET() {
       throw new Error("GitHub returned an empty contribution calendar.");
     }
 
-    return NextResponse.json(
-      {
-        ...data,
-        username: personal.githubUsername,
-        source: CONTRIBUTIONS_URL,
-        fetchedAt: new Date().toISOString(),
+    const payload = {
+      ...data,
+      username: personal.githubUsername,
+      source: CONTRIBUTIONS_URL,
+      fetchedAt: new Date().toISOString(),
+    };
+
+    // Populate cache
+    cachedData = {
+      payload,
+      expiresAt: Date.now() + CACHE_TTL_MS,
+    };
+
+    return NextResponse.json(payload, {
+      headers: {
+        "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
       },
-      {
-        headers: {
-          "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
-          Pragma: "no-cache",
-          Expires: "0",
-        },
-      },
-    );
+    });
   } catch (error) {
+    // Serve stale cache on error if available
+    if (cachedData) {
+      return NextResponse.json(cachedData.payload, {
+        headers: {
+          "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300",
+        },
+      });
+    }
+
     return NextResponse.json(
       {
         error: error instanceof Error ? error.message : "Could not load GitHub contributions.",

@@ -56,7 +56,7 @@ export function ProjectsSection() {
         {projects.map((project, index) => (
           <FadeIn key={project.title} delay={index * 0.08}>
             <article className="card-hover h-full border border-dashed border-white/15 bg-white/[0.02] p-3">
-              <a href={project.demo} target="_blank" rel="noreferrer" className="group block">
+              <a href={project.demo} target="_blank" rel="noopener noreferrer" className="group block" aria-label={`${project.title} live demo`}>
                 <div className="grid aspect-[16/8.5] place-items-center bg-black">
                   <div className="text-center">
                     <p className="text-sm font-medium text-zinc-100">{project.title}</p>
@@ -76,8 +76,9 @@ export function ProjectsSection() {
                   <a
                     href={project.demo}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 transition hover:text-zinc-100"
+                    aria-label={`${project.title} live demo`}
                   >
                     Demo
                     <ArrowUpRight className="h-3 w-3" />
@@ -85,7 +86,7 @@ export function ProjectsSection() {
                   <a
                     href={project.github}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 transition hover:text-zinc-100"
                     aria-label={`${project.title} GitHub repository`}
                   >
@@ -96,6 +97,18 @@ export function ProjectsSection() {
               </div>
 
               <p className="mt-3 text-sm leading-6 text-zinc-500">{project.summary}</p>
+
+              {/* Tech stack badges */}
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                {project.stack.map((tech) => (
+                  <span
+                    key={tech}
+                    className="tech-badge rounded-full border border-white/8 bg-white/[0.04] px-2 py-0.5 text-[10px] font-medium text-zinc-500"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
             </article>
           </FadeIn>
         ))}
@@ -124,9 +137,9 @@ export function SkillsSection() {
                     </h3>
                     <span className="font-mono text-xs text-zinc-600">{String(group.items.length).padStart(2, "0")}</span>
                   </div>
-                  <div className="mt-5 flex flex-wrap gap-2">
+                  <div className="mt-5 flex flex-wrap gap-2" role="list" aria-label={`${group.title} skills`}>
                     {group.items.map((item) => (
-                      <Badge key={item} className="inline-flex items-center gap-1.5">
+                      <Badge key={item} className="inline-flex items-center gap-1.5" role="listitem">
                         <Icon className="h-3 w-3 text-zinc-500" />
                         {item}
                       </Badge>
@@ -281,7 +294,7 @@ export function ContactSection() {
           </p>
           <div className="mt-7 flex justify-center">
             <Button asChild>
-              <a href={`mailto:${personal.email}?subject=Software%20Engineering%20Internship%20Opportunity`}>
+              <a href={`mailto:${personal.email}?subject=Software%20Engineering%20Internship%20Opportunity`} aria-label="Email Nitin Kumar about internship opportunities">
                 <Mail className="h-4 w-4" />
                 Email Me
               </a>
@@ -298,8 +311,9 @@ export function ContactSection() {
               <a
                 href={link.href}
                 target={link.href.startsWith("mailto:") ? undefined : "_blank"}
-                rel={link.href.startsWith("mailto:") ? undefined : "noreferrer"}
+                rel={link.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
                 className="card-hover block rounded-2xl border border-white/10 bg-white/[0.035] p-5"
+                aria-label={`${link.label}: ${link.value}`}
               >
                 <span className="flex items-center gap-3 text-zinc-100">
                   <Icon className="h-4 w-4 text-zinc-500" />
