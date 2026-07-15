@@ -103,7 +103,7 @@ export function ProjectsSection() {
                 {project.stack.map((tech) => (
                   <span
                     key={tech}
-                    className="tech-badge rounded-full border border-white/8 bg-white/[0.04] px-2 py-0.5 text-[10px] font-medium text-zinc-500"
+                    className="tech-badge rounded-full bg-white/[0.06] px-2 py-0.5 text-[10px] font-medium text-zinc-500"
                   >
                     {tech}
                   </span>

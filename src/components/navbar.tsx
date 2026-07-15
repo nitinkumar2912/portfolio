@@ -1,12 +1,36 @@
+"use client";
+
 import { FileText, Github } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import { ProfileLogo } from "@/components/profile-logo";
 import { Button } from "@/components/ui/button";
 import { navItems, personal } from "@/data/portfolio";
+import { cn } from "@/lib/utils";
 
 export function Navbar() {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const updateHeader = () => {
+      setIsScrolled(window.scrollY > 16);
+    };
+
+    updateHeader();
+    window.addEventListener("scroll", updateHeader, { passive: true });
+
+    return () => window.removeEventListener("scroll", updateHeader);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0a0a0a]/78 backdrop-blur-xl">
+    <header
+      className={cn(
+        "sticky top-0 z-50 border-b transition-[background-color,border-color,backdrop-filter] duration-300",
+        isScrolled
+          ? "border-white/10 bg-[#0a0a0a]/78 backdrop-blur-xl"
+          : "border-transparent bg-transparent backdrop-blur-0",
+      )}
+    >
       <nav className="container flex min-h-16 items-center justify-between gap-4" aria-label="Main navigation">
         <a href="#about" className="flex items-center gap-3" aria-label={`${personal.name} — go to about section`}>
           <ProfileLogo className="h-9 w-9" size={36} priority />

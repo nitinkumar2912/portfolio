@@ -7,6 +7,10 @@ export function ScrollBlurEffect() {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const topEl = topRef.current;
+    const bottomEl = bottomRef.current;
+    if (!topEl || !bottomEl) return;
+
     let lastY = window.scrollY;
     let raf = false;
     let timer: ReturnType<typeof setTimeout>;
@@ -17,16 +21,16 @@ export function ScrollBlurEffect() {
       const k = Math.min(speed / 25, 1);
       const down = y > lastY;
 
-      if (topRef.current) topRef.current.style.opacity = String(down ? k * 0.85 : k * 0.35);
-      if (bottomRef.current) bottomRef.current.style.opacity = String(down ? k * 0.35 : k * 0.85);
+      topEl!.style.opacity = String(down ? k * 0.85 : k * 0.35);
+      bottomEl!.style.opacity = String(down ? k * 0.35 : k * 0.85);
 
       lastY = y;
       raf = false;
 
       clearTimeout(timer);
       timer = setTimeout(() => {
-        if (topRef.current) topRef.current.style.opacity = "0";
-        if (bottomRef.current) bottomRef.current.style.opacity = "0";
+        topEl!.style.opacity = "0";
+        bottomEl!.style.opacity = "0";
       }, 100);
     }
 
@@ -44,36 +48,16 @@ export function ScrollBlurEffect() {
     };
   }, []);
 
-  const blurCSS = (dir: "top" | "bottom"): React.CSSProperties => ({
-    background:
-      dir === "top"
-        ? "linear-gradient(to bottom, rgba(10,10,10,0.8), transparent)"
-        : "linear-gradient(to top, rgba(10,10,10,0.8), transparent)",
-    backdropFilter: "blur(5px)",
-    WebkitBackdropFilter: "blur(5px)",
-    maskImage:
-      dir === "top"
-        ? "linear-gradient(to bottom, black 15%, transparent)"
-        : "linear-gradient(to top, black 15%, transparent)",
-    WebkitMaskImage:
-      dir === "top"
-        ? "linear-gradient(to bottom, black 15%, transparent)"
-        : "linear-gradient(to top, black 15%, transparent)",
-    transition: "opacity 0.2s ease-out",
-  });
-
   return (
     <>
       <div
         ref={topRef}
-        className="pointer-events-none fixed inset-x-0 top-16 z-40 h-24 opacity-0"
-        style={blurCSS("top")}
+        className="scroll-blur-top pointer-events-none fixed inset-x-0 top-16 z-40 h-24 opacity-0"
         aria-hidden="true"
       />
       <div
         ref={bottomRef}
-        className="pointer-events-none fixed inset-x-0 bottom-0 z-40 h-24 opacity-0"
-        style={blurCSS("bottom")}
+        className="scroll-blur-bottom pointer-events-none fixed inset-x-0 bottom-0 z-40 h-24 opacity-0"
         aria-hidden="true"
       />
     </>
