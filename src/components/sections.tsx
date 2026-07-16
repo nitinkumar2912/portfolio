@@ -1,4 +1,4 @@
-import { ArrowUpRight, Github, Mail } from "lucide-react";
+import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
 
 import { GithubContributions } from "@/components/github-contributions";
 import { FadeIn } from "@/components/motion";
@@ -16,7 +16,6 @@ import {
   personal,
   projects,
   skillGroups,
-  socialLinks,
   techLogos,
 } from "@/data/portfolio";
 
@@ -319,47 +318,50 @@ export function CertificationsSection() {
 
 export function ContactSection() {
   return (
-    <section id="contact" className="section-py container">
+    <section id="contact" className="container py-10 sm:py-14">
       <FadeIn>
-        <div className="corner-frame rounded-2xl border border-white/10 bg-white/[0.035] p-6 text-center sm:p-10">
-          <p className="font-mono text-sm text-zinc-500">Contact</p>
-          <h2 className="mt-4 text-3xl font-semibold text-zinc-100">Let us talk internships and engineering work</h2>
-          <p className="mx-auto mt-4 max-w-xl text-pretty leading-7 text-zinc-400">
-            I am open to software engineering internships, MERN stack opportunities, project feedback, and open source collaboration.
-          </p>
-          <div className="mt-7 flex justify-center">
-            <Button asChild>
-              <a href={`mailto:${personal.email}?subject=Software%20Engineering%20Internship%20Opportunity`} aria-label="Email Nitin Kumar about internship opportunities">
-                <Mail className="h-4 w-4" />
-                Email Me
-              </a>
-            </Button>
+        <div className="contact-panel corner-frame relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-950/70 px-6 py-8 text-center shadow-glow sm:px-10 sm:py-10">
+          <span className="contact-line contact-line-1" aria-hidden="true" />
+          <span className="contact-line contact-line-2" aria-hidden="true" />
+          <span className="contact-line contact-line-3" aria-hidden="true" />
+
+          <div className="relative z-10">
+            <p className="text-sm font-medium text-zinc-500">Contact</p>
+            <h2 className="mx-auto mt-3 max-w-2xl text-3xl font-semibold tracking-normal text-zinc-100 sm:text-4xl">
+              Available for internships and MERN work
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-pretty text-sm leading-6 text-zinc-400 sm:text-base sm:leading-7">
+              Send the opportunity, project idea, or feedback. I will reply with context, links, and next steps.
+            </p>
+
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+              <Button asChild>
+                <a href={`mailto:${personal.email}?subject=Software%20Engineering%20Internship%20Opportunity`} aria-label="Email Nitin Kumar about internship opportunities">
+                  <Mail className="h-4 w-4" />
+                  Email Me
+                </a>
+              </Button>
+              <div className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.035] p-1">
+                <Button asChild variant="ghost" size="icon" aria-label="Email">
+                  <a href={`mailto:${personal.email}`}>
+                    <Mail className="h-4 w-4" />
+                  </a>
+                </Button>
+                <Button asChild variant="ghost" size="icon" aria-label="GitHub">
+                  <a href={personal.github} target="_blank" rel="noopener noreferrer">
+                    <Github className="h-4 w-4" />
+                  </a>
+                </Button>
+                <Button asChild variant="ghost" size="icon" aria-label="LinkedIn">
+                  <a href={personal.linkedin} target="_blank" rel="noopener noreferrer">
+                    <Linkedin className="h-4 w-4" />
+                  </a>
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </FadeIn>
-
-      <div className="mt-8 grid gap-3 sm:grid-cols-2">
-        {socialLinks.map((link, index) => {
-          const Icon = link.icon;
-          return (
-            <FadeIn key={link.label} delay={index * 0.05}>
-              <a
-                href={link.href}
-                target={link.href.startsWith("mailto:") ? undefined : "_blank"}
-                rel={link.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
-                className="card-hover block rounded-2xl border border-white/10 bg-white/[0.035] p-5"
-                aria-label={`${link.label}: ${link.value}`}
-              >
-                <span className="flex items-center gap-3 text-zinc-100">
-                  <Icon className="h-4 w-4 text-zinc-500" />
-                  {link.label}
-                </span>
-                <span className="mt-2 block break-words text-sm text-zinc-500">{link.value}</span>
-              </a>
-            </FadeIn>
-          );
-        })}
-      </div>
     </section>
   );
 }

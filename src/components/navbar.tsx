@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpRight, Github } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { ProfileLogo } from "@/components/profile-logo";
@@ -83,16 +83,20 @@ export function Navbar() {
           ))}
         </div>
 
-        <div className="flex items-center gap-2">
-          <Button asChild variant="ghost" size="icon" className="hidden sm:inline-flex" aria-label="GitHub">
+        <div className="flex items-center gap-1.5">
+          <Button asChild variant="ghost" size="icon" aria-label="GitHub">
             <a href={personal.github} target="_blank" rel="noopener noreferrer">
               <Github className="h-4 w-4" />
             </a>
           </Button>
-          <Button asChild variant="ghost" size="sm" className="text-zinc-500 hover:text-zinc-100">
-            <a href={personal.resume} target="_blank" rel="noopener noreferrer" aria-label="View resume">
-              Resume
-              <ArrowUpRight className="h-3.5 w-3.5" />
+          <Button asChild variant="ghost" size="icon" aria-label="LinkedIn">
+            <a href={personal.linkedin} target="_blank" rel="noopener noreferrer">
+              <Linkedin className="h-4 w-4" />
+            </a>
+          </Button>
+          <Button asChild variant="ghost" size="icon" aria-label="Email">
+            <a href={`mailto:${personal.email}`}>
+              <Mail className="h-4 w-4" />
             </a>
           </Button>
         </div>

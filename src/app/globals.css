@@ -132,6 +132,62 @@ a {
   animation: typewriter-caret 900ms steps(1, end) infinite;
 }
 
+@keyframes contact-line-pass {
+  0% {
+    opacity: 0;
+    transform: translate3d(-120%, 0, 0) rotate(-8deg);
+  }
+  18% {
+    opacity: 0.42;
+  }
+  72% {
+    opacity: 0.24;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(120%, -22px, 0) rotate(-8deg);
+  }
+}
+
+.contact-panel::before {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.08), transparent 22rem),
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.04), transparent);
+  opacity: 0.65;
+}
+
+.contact-line {
+  position: absolute;
+  left: -20%;
+  width: 72%;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.46), transparent);
+  filter: blur(0.2px);
+  transform-origin: center;
+  animation: contact-line-pass 5.8s ease-in-out infinite;
+}
+
+.contact-line-1 {
+  top: 24%;
+}
+
+.contact-line-2 {
+  top: 52%;
+  animation-delay: 1.6s;
+  animation-duration: 6.8s;
+}
+
+.contact-line-3 {
+  top: 76%;
+  animation-delay: 3.1s;
+  animation-duration: 7.4s;
+}
+
 /* ─── Scroll blur overlays ─── */
 .scroll-blur-top {
   background: linear-gradient(to bottom, rgba(10, 10, 10, 0.8), transparent);
@@ -234,6 +290,11 @@ a {
 
   .typewriter-cursor {
     animation: none;
+  }
+
+  .contact-line {
+    animation: none;
+    opacity: 0.18;
   }
 
   .orb { display: none; }
