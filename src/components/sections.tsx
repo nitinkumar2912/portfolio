@@ -177,12 +177,12 @@ export function TechLogosRow() {
   return (
     <section className="section-py container">
       <FadeIn>
-        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-8 sm:gap-x-4 sm:gap-y-10">
           {techLogos.map((tech) => (
             <div
               key={tech.name}
-              className="group relative grid h-12 w-12 place-items-center rounded-xl bg-zinc-800/80 transition hover:bg-zinc-700/80 sm:h-14 sm:w-14"
-              title={tech.name}
+              className="group relative grid h-12 w-12 place-items-center rounded-xl bg-zinc-800/80 transition hover:z-20 hover:bg-zinc-700/80 sm:h-14 sm:w-14"
+              aria-label={tech.name}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -193,7 +193,7 @@ export function TechLogosRow() {
                 className="h-7 w-7 sm:h-8 sm:w-8"
                 loading="lazy"
               />
-              <span className="pointer-events-none absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-800 px-2 py-0.5 text-[10px] font-medium text-zinc-400 opacity-0 transition group-hover:opacity-100">
+              <span className="pointer-events-none absolute bottom-full left-1/2 z-30 mb-2 -translate-x-1/2 whitespace-nowrap rounded border border-white/10 bg-zinc-950 px-2 py-0.5 text-[10px] font-medium text-zinc-300 opacity-0 shadow-lg shadow-black/30 transition group-hover:opacity-100">
                 {tech.name}
               </span>
             </div>
