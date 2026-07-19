@@ -4,7 +4,7 @@ A professional Next.js portfolio for Nitin Kumar, a Computer Science student at 
 
 ## Live Links
 
-- Portfolio: nitinkumar.website
+- Portfolio:https://www.nitinkumar.website/
 - GitHub: https://github.com/nitinkumar2912
 - LinkedIn: https://www.linkedin.com/in/nitin-kumar-30790336a/
 - Email: nitinkumar29122501@gmail.com
