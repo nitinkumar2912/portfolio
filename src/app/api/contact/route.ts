@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+
 import { personal } from "@/data/portfolio";
 
 const resendEndpoint = "https://api.resend.com/emails";
@@ -30,7 +31,7 @@ export async function POST(request: Request) {
       { status: 500 },
     );
   }
-
+console.log(process.env.RESEND_API_KEY);
   const body = (await request.json().catch(() => null)) as {
     name?: unknown;
     email?: unknown;
@@ -93,7 +94,9 @@ export async function POST(request: Request) {
   }
 
   if (!response.ok) {
-    const providerError = (await response.json().catch(() => null)) as { message?: string } | null;
+const providerError = await response.json().catch(() => null);
+
+  console.log("Resend Error:", providerError);
 
     return NextResponse.json(
       { error: providerError?.message ?? "Message could not be sent right now. Check your email service settings." },
