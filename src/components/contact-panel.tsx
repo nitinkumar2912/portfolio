@@ -6,7 +6,7 @@ import { ArrowUpRight, CalendarDays, CheckCircle2, Github, Linkedin, Loader2, Ma
 import { personal } from "@/data/portfolio";
 
 const fieldClassName =
-  "w-full border-0 border-b border-rose-700/70 bg-transparent px-2 py-3 text-base text-zinc-100 outline-none transition placeholder:text-zinc-600 invalid:border-rose-700/70 valid:border-emerald-500 focus:invalid:border-rose-400 focus:valid:border-emerald-400";
+  "w-full min-w-0 border-0 border-b border-rose-700/70 bg-transparent px-1.5 py-2 text-sm text-zinc-100 outline-none transition placeholder:text-zinc-600 invalid:border-rose-700/70 valid:border-emerald-500 focus:invalid:border-rose-400 focus:valid:border-emerald-400 sm:py-2.5";
 
 const contactMethods = [
   {
@@ -92,53 +92,53 @@ export function ContactPanel() {
 
   return (
     <div className="relative z-10">
-      <div className="mb-8 flex items-center gap-4">
-        <span className="h-12 w-1.5 rounded-full bg-zinc-100/90" aria-hidden="true" />
-        <h2 className="text-3xl font-semibold tracking-normal text-zinc-100 sm:text-4xl">Let's Work Together</h2>
+      <div className="mb-4 flex min-w-0 items-center gap-2.5 sm:mb-6 sm:gap-3">
+        <span className="h-8 w-1.5 shrink-0 rounded-full bg-zinc-100/90 sm:h-10" aria-hidden="true" />
+        <h2 className="min-w-0 text-xl font-semibold tracking-normal text-zinc-100 sm:text-3xl">Let's Work Together</h2>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-2xl border border-white/10 bg-white/[0.025] p-6 sm:p-7">
-          <h3 className="text-2xl font-semibold text-zinc-100">Get in touch</h3>
-          <p className="mt-3 max-w-md text-sm leading-6 text-zinc-400 sm:text-base">
+      <div className="grid gap-3 md:grid-cols-2 sm:gap-4">
+        <div className="min-w-0 rounded-xl border border-white/10 bg-white/[0.025] p-3 sm:rounded-2xl sm:p-6">
+          <h3 className="text-base font-semibold text-zinc-100 sm:text-xl">Get in touch</h3>
+          <p className="mt-1.5 max-w-md text-xs leading-5 text-zinc-400 sm:mt-2 sm:text-sm">
             Choose your preferred method to connect and let's discuss your project.
           </p>
 
-          <div className="mt-7 space-y-3">
+          <div className="mt-3 space-y-2 sm:mt-5 sm:space-y-2.5">
             {contactMethods.map((method) => {
               const Icon = method.icon;
 
               return (
                 <a
                   key={method.title}
-                  className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-zinc-950/50 p-4 transition hover:border-white/20 hover:bg-white/[0.045]"
+                  className="group flex min-w-0 items-center gap-2.5 rounded-lg border border-white/10 bg-zinc-950/50 p-2.5 transition hover:border-white/20 hover:bg-white/[0.045] sm:gap-3 sm:rounded-xl sm:p-3"
                   href={method.href}
                   target={method.href.startsWith("mailto:") ? undefined : "_blank"}
                   rel={method.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
                 >
-                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/[0.035] text-zinc-400 transition group-hover:text-zinc-100">
-                    <Icon className="h-5 w-5" />
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-white/[0.035] text-zinc-400 transition group-hover:text-zinc-100 sm:h-10 sm:w-10">
+                    <Icon className="h-4 w-4" />
                   </span>
                   <span className="min-w-0 flex-1">
-                    <span className="block text-base font-medium text-zinc-100">{method.title}</span>
-                    <span className="mt-0.5 block truncate text-sm text-zinc-500">{method.description}</span>
+                    <span className="block truncate text-xs font-medium text-zinc-100 sm:text-sm">{method.title}</span>
+                    <span className="mt-0.5 hidden truncate text-xs text-zinc-500 min-[380px]:block">{method.description}</span>
                   </span>
-                  <ArrowUpRight className="h-4 w-4 shrink-0 text-zinc-600 transition group-hover:text-zinc-200" />
+                  <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-zinc-600 transition group-hover:text-zinc-200 sm:h-4 sm:w-4" />
                 </a>
               );
             })}
           </div>
 
-          <p className="mt-7 text-sm text-zinc-500">Response within 24 hours • Available for hire</p>
+          <p className="mt-3 text-[11px] text-zinc-500 sm:mt-5 sm:text-xs">Response within 24 hours • Available for hire</p>
         </div>
 
-        <form className="rounded-2xl border border-white/10 bg-white/[0.025] p-6 sm:p-7" onSubmit={handleSubmit}>
-          <h3 className="text-2xl font-semibold text-zinc-100">Send a message</h3>
-          <p className="mt-3 max-w-md text-sm leading-6 text-zinc-400 sm:text-base">
+        <form className="min-w-0 rounded-xl border border-white/10 bg-white/[0.025] p-3 sm:rounded-2xl sm:p-6" onSubmit={handleSubmit}>
+          <h3 className="text-base font-semibold text-zinc-100 sm:text-xl">Send a message</h3>
+          <p className="mt-1.5 max-w-md text-xs leading-5 text-zinc-400 sm:mt-2 sm:text-sm">
             Prefer to write? Fill out the form and I'll get back to you within 24 hours.
           </p>
 
-          <div className="mt-8 space-y-6">
+          <div className="mt-3 space-y-3 sm:mt-6 sm:space-y-4">
             <input
               className={fieldClassName}
               name="name"
@@ -156,7 +156,7 @@ export function ContactPanel() {
               required
             />
             <textarea
-              className={`${fieldClassName} min-h-24 resize-y`}
+              className={`${fieldClassName} min-h-16 resize-y sm:min-h-20`}
               name="message"
               placeholder="Message"
               minLength={5}
@@ -164,14 +164,14 @@ export function ContactPanel() {
             />
           </div>
 
-          {submitState === "error" ? <p className="mt-4 text-sm text-rose-300">{errorMessage}</p> : null}
+          {submitState === "error" ? <p className="mt-2 text-[11px] leading-4 text-rose-300 sm:mt-3 sm:text-xs sm:leading-5">{errorMessage}</p> : null}
 
           <button
-            className="mt-7 inline-flex h-12 w-full items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/[0.035] px-5 text-base font-medium text-zinc-100 transition hover:border-white/20 hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 disabled:cursor-not-allowed disabled:opacity-60"
+            className="mt-3 inline-flex h-10 w-full items-center justify-center gap-2 rounded-lg border border-white/10 bg-white/[0.035] px-3 text-sm font-medium text-zinc-100 transition hover:border-white/20 hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 disabled:cursor-not-allowed disabled:opacity-60 sm:mt-5 sm:h-11 sm:rounded-xl sm:px-4"
             type="submit"
             disabled={submitState === "sending"}
           >
-            {submitState === "sending" ? <Loader2 className="h-5 w-5 animate-spin" /> : <Send className="h-5 w-5" />}
+            {submitState === "sending" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
             Send Message
             <ArrowUpRight className="h-4 w-4" />
           </button>

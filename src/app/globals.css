@@ -78,7 +78,29 @@ a {
 }
 
 .section-py {
-  padding-block: 2.75rem;
+  padding-block: 1.35rem;
+}
+
+@keyframes tech-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.tech-marquee {
+  width: 100%;
+  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
+
+.tech-marquee-track {
+  animation: tech-marquee 28s linear infinite;
+}
+
+.tech-marquee:hover .tech-marquee-track {
+  animation-play-state: paused;
 }
 
 .card-hover {
@@ -155,9 +177,23 @@ a {
   pointer-events: none;
   content: "";
   background:
-    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.08), transparent 22rem),
-    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.04), transparent);
-  opacity: 0.65;
+    radial-gradient(ellipse at 22% 18%, rgba(16, 185, 129, 0.14), transparent 18rem),
+    radial-gradient(ellipse at 82% 68%, rgba(34, 211, 238, 0.08), transparent 18rem),
+    linear-gradient(115deg, rgba(255, 255, 255, 0.07), transparent 34%, rgba(255, 255, 255, 0.035));
+  opacity: 0.72;
+}
+
+.contact-panel::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  background:
+    radial-gradient(rgba(255, 255, 255, 0.28) 0.6px, transparent 0.7px),
+    linear-gradient(115deg, transparent 0 34%, rgba(16, 185, 129, 0.12) 34.2%, transparent 34.5% 64%, rgba(34, 211, 238, 0.08) 64.2%, transparent 64.5%),
+    linear-gradient(25deg, transparent 0 48%, rgba(255, 255, 255, 0.06) 48.2%, transparent 48.5%);
+  background-size: 11px 11px, 100% 100%, 100% 100%;
+  opacity: 0.38;
 }
 
 .contact-line {
@@ -268,7 +304,7 @@ a {
 
 @media (max-width: 640px) {
   .section-py {
-    padding-block: 2.25rem;
+    padding-block: 1.15rem;
   }
 
   .orb { display: none; }
