@@ -1,5 +1,6 @@
-import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowUpRight, Github } from "lucide-react";
 
+import { ContactPanel } from "@/components/contact-panel";
 import { GithubContributions } from "@/components/github-contributions";
 import { FadeIn } from "@/components/motion";
 import { ProfileLogo } from "@/components/profile-logo";
@@ -56,17 +57,28 @@ export function ProjectsSection() {
           <FadeIn key={project.title} delay={index * 0.08}>
             <article className="card-hover h-full border border-dashed border-white/15 bg-white/[0.02] p-3">
               <a href={project.demo || project.github} target="_blank" rel="noopener noreferrer" className="group block" aria-label={`${project.title} ${project.demo ? "live demo" : "source code"}`}>
-                <div className="relative grid aspect-[16/8.5] place-items-center bg-black">
+                <div className="relative grid aspect-[16/8.5] place-items-center overflow-hidden bg-black">
+                  {project.thumbnail ? (
+                    <>
+                      <img
+                        src={project.thumbnail}
+                        alt={`${project.title} project thumbnail`}
+                        className="h-full w-full object-cover object-top opacity-90 transition duration-300 group-hover:scale-[1.02] group-hover:opacity-100"
+                      />
+                      <span className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/10" aria-hidden="true" />
+                    </>
+                  ) : (
+                    <div className="text-center">
+                      <p className="text-sm font-medium text-zinc-100">{project.title}</p>
+                      <p className="mx-auto mt-2 max-w-48 text-xs leading-4 text-zinc-500">{project.summary}</p>
+                    </div>
+                  )}
                   {!project.demo && (
                     <span className="absolute top-2 right-2 inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/[0.08] px-2 py-0.5 text-[10px] font-medium text-emerald-400">
                       <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 pulse-dot" />
                       In active development
                     </span>
                   )}
-                  <div className="text-center">
-                    <p className="text-sm font-medium text-zinc-100">{project.title}</p>
-                    <p className="mx-auto mt-2 max-w-48 text-xs leading-4 text-zinc-500">{project.summary}</p>
-                  </div>
                 </div>
               </a>
 
@@ -320,46 +332,11 @@ export function ContactSection() {
   return (
     <section id="contact" className="container py-10 sm:py-14">
       <FadeIn>
-        <div className="contact-panel corner-frame relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-950/70 px-6 py-8 text-center shadow-glow sm:px-10 sm:py-10">
+        <div className="contact-panel corner-frame relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-950/70 px-5 py-7 shadow-glow sm:px-8 sm:py-8">
           <span className="contact-line contact-line-1" aria-hidden="true" />
           <span className="contact-line contact-line-2" aria-hidden="true" />
           <span className="contact-line contact-line-3" aria-hidden="true" />
-
-          <div className="relative z-10">
-            <p className="text-sm font-medium text-zinc-500">Contact</p>
-            <h2 className="mx-auto mt-3 max-w-2xl text-3xl font-semibold tracking-normal text-zinc-100 sm:text-4xl">
-              Available for internships and MERN work
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-pretty text-sm leading-6 text-zinc-400 sm:text-base sm:leading-7">
-              Send the opportunity, project idea, or feedback. I will reply with context, links, and next steps.
-            </p>
-
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              <Button asChild>
-                <a href={`mailto:${personal.email}?subject=Software%20Engineering%20Internship%20Opportunity`} aria-label="Email Nitin Kumar about internship opportunities">
-                  <Mail className="h-4 w-4" />
-                  Email Me
-                </a>
-              </Button>
-              <div className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.035] p-1">
-                <Button asChild variant="ghost" size="icon" aria-label="Email">
-                  <a href={`mailto:${personal.email}`}>
-                    <Mail className="h-4 w-4" />
-                  </a>
-                </Button>
-                <Button asChild variant="ghost" size="icon" aria-label="GitHub">
-                  <a href={personal.github} target="_blank" rel="noopener noreferrer">
-                    <Github className="h-4 w-4" />
-                  </a>
-                </Button>
-                <Button asChild variant="ghost" size="icon" aria-label="LinkedIn">
-                  <a href={personal.linkedin} target="_blank" rel="noopener noreferrer">
-                    <Linkedin className="h-4 w-4" />
-                  </a>
-                </Button>
-              </div>
-            </div>
-          </div>
+          <ContactPanel />
         </div>
       </FadeIn>
     </section>

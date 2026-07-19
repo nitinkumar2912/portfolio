@@ -9,10 +9,10 @@ import { cn } from "@/lib/utils";
 
 const contributionClasses = [
   "bg-zinc-900/70 border-zinc-800/80",
-  "bg-zinc-700 border-zinc-700",
-  "bg-zinc-500 border-zinc-500",
-  "bg-zinc-300 border-zinc-300",
-  "bg-white border-white",
+  "bg-emerald-950 border-emerald-900",
+  "bg-emerald-800 border-emerald-700",
+  "bg-emerald-600 border-emerald-500",
+  "bg-emerald-400 border-emerald-300",
 ];
 
 function formatDate(date: string) {

@@ -22,6 +22,7 @@ export type Project = {
   readonly built: string;
   readonly features: readonly string[];
   readonly stack: readonly string[];
+  readonly thumbnail?: string;
   readonly github: string;
   readonly demo: string;
   readonly featured: boolean;
