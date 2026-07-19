@@ -9,6 +9,7 @@ function isValidEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();

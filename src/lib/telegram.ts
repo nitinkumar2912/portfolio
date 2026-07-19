@@ -10,6 +10,8 @@ export async function sendTelegramNotification({
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
 
+  
+
   if (!token || !chatId) {
     console.log("Telegram is not configured.");
     return;

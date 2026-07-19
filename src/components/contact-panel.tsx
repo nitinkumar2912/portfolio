@@ -189,9 +189,14 @@ export function ContactPanel() {
             >
               <X className="h-4 w-4" />
             </button>
-            <CheckCircle2 className="mx-auto h-12 w-12 text-emerald-400" />
-            <h3 className="mt-4 text-xl font-semibold text-zinc-100">Thanks for sending message</h3>
-            <p className="mt-2 text-sm leading-6 text-zinc-400">Your message has been sent to my email. I will reply soon.</p>
+  <CheckCircle2 className="mx-auto h-12 w-12 text-emerald-400" />
+<h3 className="mt-4 text-xl font-semibold text-zinc-100">
+  Message Sent Successfully!
+</h3>
+<p className="mt-2 text-sm leading-6 text-zinc-400">
+  Thank you for reaching out! Your message has been received successfully.
+  I'll get back to you as soon as possible.
+</p>
             <button
               className="mt-5 h-10 rounded-full bg-zinc-100 px-5 text-sm font-medium text-zinc-950 transition hover:bg-white"
               type="button"
