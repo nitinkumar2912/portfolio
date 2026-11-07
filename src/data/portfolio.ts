@@ -90,58 +90,6 @@ export const experience = [
 
 export const projects: readonly Project[] = [
   {
-    title: "JobTrackr",
-    label: "Featured MERN Project",
-    summary: "A MERN job tracker for internship applications, notes, analytics, and follow-ups.",
-    description:
-      "A production-ready MERN job application tracker built for managing internship and placement pipelines with authentication, analytics, notes, reminders, and deployment-ready architecture.",
-    problem:
-      "Tracking internship applications across spreadsheets, emails, and bookmarks falls apart fast. You lose follow-up dates, forget which recruiter you spoke to, and have no clear picture of where each application stands.",
-    built:
-      "A full-stack MERN application with JWT authentication, a Kanban pipeline board, analytics dashboard, interview notes, recruiter tracking, and follow-up reminders. Data lives in MongoDB Atlas, the API runs on Express with Render, and the React frontend is deployed on Vercel.",
-    features: [
-      "JWT Authentication",
-      "MongoDB Atlas",
-      "Analytics Dashboard",
-      "Kanban Board",
-      "Interview Notes",
-      "Recruiter Tracking",
-      "Follow-up Reminders",
-      "Activity Timeline",
-      "Render Deployment",
-      "Vercel Deployment",
-    ],
-    stack: ["React", "Node.js", "Express.js", "MongoDB Atlas", "JWT", "Render", "Vercel"],
-    thumbnail: "/projects/jobtrackr.png",
-    github: "https://github.com/nitinkumar2912/JobTracker",
-    demo: "https://job-tracker-client-murex.vercel.app",
-    featured: true,
-  },
-  {
-    title: "TopTodo",
-    label: "JavaScript Productivity App",
-    summary: "A clean JavaScript task app with projects, due dates, reusable modules, and local storage.",
-    description:
-      "A modular task management application focused on project organization, due date scheduling, persistent task data, and a clean component-based interface.",
-    problem:
-      "Most to-do apps either oversimplify tasks into a flat list or overwhelm with features. Students and developers need something in between — project-level grouping, due dates, and persistence without sign-up friction.",
-    built:
-      "A modular vanilla JavaScript app with Webpack, organized around project folders, due-date scheduling with date-fns, and local storage persistence. Components are reusable and the architecture is clean enough to extend without a framework.",
-    features: [
-      "Project Organization",
-      "Due Date Scheduling",
-      "Local Storage Persistence",
-      "Webpack Architecture",
-      "Reusable Components",
-      "Clean UI",
-    ],
-    stack: ["JavaScript", "Webpack", "date-fns", "Local Storage"],
-    thumbnail: "/projects/toptodo.png",
-    github: "https://github.com/nitinkumar2912/TopTodo",
-    demo: "https://nitinkumar2912.github.io/TopTodo/",
-    featured: false,
-  },
-  {
     title: "Mingle",
     label: "Real-Time Chat Application",
     summary: "Mingle is a full-featured real-time chat app with custom JWT auth, Socket.io messaging, and cloud deployments.",
@@ -169,6 +117,58 @@ export const projects: readonly Project[] = [
     thumbnail: "/projects/mingle.png",
     github: "https://github.com/nitinkumar2912/Ghub-chatify-app",
     demo: "https://ghub-chatify-app.onrender.com/chat",
+    featured: true,
+  },
+  {
+    title: "JobTrackr",
+    label: "Featured MERN Project",
+    summary: "A MERN job tracker for internship applications, notes, analytics, and follow-ups.",
+    description:
+      "A production-ready MERN job application tracker built for managing internship and placement pipelines with authentication, analytics, notes, reminders, and deployment-ready architecture.",
+    problem:
+      "Tracking internship applications across spreadsheets, emails, and bookmarks falls apart fast. You lose follow-up dates, forget which recruiter you spoke to, and have no clear picture of where each application stands.",
+    built:
+      "A full-stack MERN application with JWT authentication, a Kanban pipeline board, analytics dashboard, interview notes, recruiter tracking, and follow-up reminders. Data lives in MongoDB Atlas, the API runs on Express with Render, and the React frontend is deployed on Vercel.",
+    features: [
+      "JWT Authentication",
+      "MongoDB Atlas",
+      "Analytics Dashboard",
+      "Kanban Board",
+      "Interview Notes",
+      "Recruiter Tracking",
+      "Follow-up Reminders",
+      "Activity Timeline",
+      "Render Deployment",
+      "Vercel Deployment",
+    ],
+    stack: ["React", "Node.js", "Express.js", "MongoDB Atlas", "JWT", "Render", "Vercel"],
+    thumbnail: "/projects/jobtrackr.png",
+    github: "https://github.com/nitinkumar2912/JobTracker",
+    demo: "https://job-tracker-client-murex.vercel.app",
+    featured: false,
+  },
+  {
+    title: "TopTodo",
+    label: "JavaScript Productivity App",
+    summary: "A clean JavaScript task app with projects, due dates, reusable modules, and local storage.",
+    description:
+      "A modular task management application focused on project organization, due date scheduling, persistent task data, and a clean component-based interface.",
+    problem:
+      "Most to-do apps either oversimplify tasks into a flat list or overwhelm with features. Students and developers need something in between — project-level grouping, due dates, and persistence without sign-up friction.",
+    built:
+      "A modular vanilla JavaScript app with Webpack, organized around project folders, due-date scheduling with date-fns, and local storage persistence. Components are reusable and the architecture is clean enough to extend without a framework.",
+    features: [
+      "Project Organization",
+      "Due Date Scheduling",
+      "Local Storage Persistence",
+      "Webpack Architecture",
+      "Reusable Components",
+      "Clean UI",
+    ],
+    stack: ["JavaScript", "Webpack", "date-fns", "Local Storage"],
+    thumbnail: "/projects/toptodo.png",
+    github: "https://github.com/nitinkumar2912/TopTodo",
+    demo: "https://nitinkumar2912.github.io/TopTodo/",
     featured: false,
   },
 ];
