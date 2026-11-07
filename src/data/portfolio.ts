@@ -142,11 +142,11 @@ export const projects: readonly Project[] = [
     featured: false,
   },
   {
-    title: "Ghub Chatify",
+    title: "Mingle",
     label: "Real-Time Chat Application",
-    summary: "A full-featured real-time chat app with custom JWT auth, Socket.io messaging, and cloud deployments.",
+    summary: "Mingle is a full-featured real-time chat app with custom JWT auth, Socket.io messaging, and cloud deployments.",
     description:
-      "A production-grade real-time chat platform with custom authentication, presence indicators, image uploads, and a polished React UI.",
+      "Mingle is a production-grade real-time chat platform with custom authentication, presence indicators, image uploads, and a polished React UI.",
     problem:
       "Most chat tutorials skip the hard parts — custom auth, real-time presence, rate limiting, and production deployment. Building a chat app that handles all of these end-to-end is the gap between a tutorial project and a real product.",
     built:
@@ -166,8 +166,9 @@ export const projects: readonly Project[] = [
       "Sevalla Deployment",
     ],
     stack: ["React", "Node.js", "Express.js", "MongoDB", "Socket.io", "Tailwind CSS", "Zustand", "Cloudinary"],
+    thumbnail: "/projects/mingle.png",
     github: "https://github.com/nitinkumar2912/Ghub-chatify-app",
-    demo: "",
+    demo: "https://ghub-chatify-app.onrender.com/chat",
     featured: false,
   },
 ];
