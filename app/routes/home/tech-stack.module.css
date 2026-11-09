@@ -1,0 +1,315 @@
+.techStack {
+  width: 100%;
+  padding-top: var(--space5XL);
+  padding-bottom: var(--space5XL);
+  scroll-margin-top: var(--space3XL);
+  overflow: hidden;
+}
+
+.content {
+  width: 100%;
+  max-width: var(--maxWidthL);
+  margin: 0 auto;
+  position: relative;
+  isolation: isolate;
+}
+
+.orbitScene {
+  position: absolute;
+  z-index: 0;
+  top: 10px;
+  right: -120px;
+  width: min(38vw, 430px);
+  aspect-ratio: 1;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  opacity: 0.36;
+  pointer-events: none;
+}
+
+.orbitRing,
+.orbitRingSecondary {
+  position: absolute;
+  inset: 8%;
+  border: 1px solid color-mix(in lab, var(--primary) 42%, transparent);
+  border-radius: 50%;
+  transform-style: preserve-3d;
+}
+
+.orbitRing {
+  transform: rotateX(68deg) rotateZ(-24deg);
+  animation: orbitTurn 24s linear infinite;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 7%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--primary);
+    box-shadow: 0 0 28px color-mix(in lab, var(--primary) 75%, transparent);
+    transform: translateZ(42px);
+  }
+}
+
+.orbitRingSecondary {
+  inset: 20%;
+  border-color: color-mix(in lab, var(--text) 28%, transparent);
+  transform: rotateY(66deg) rotateX(18deg);
+  animation: orbitTurnReverse 31s linear infinite;
+}
+
+.orb {
+  position: absolute;
+  top: 31%;
+  left: 31%;
+  width: 38%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, #bcffff, #00dce9 24%, #087b91 55%, #08151f 78%);
+  box-shadow: inset -16px -18px 38px #02090f, 0 24px 70px color-mix(in lab, var(--primary) 30%, transparent);
+  transform-style: preserve-3d;
+  animation: orbFloat 7s ease-in-out infinite;
+}
+
+.intro,
+.marquee,
+.groups {
+  position: relative;
+  z-index: 1;
+}
+
+.intro {
+  max-width: var(--maxWidthM);
+  margin-bottom: var(--space3XL);
+}
+
+.eyebrow {
+  color: var(--primary);
+  font-size: var(--fontSizeBodyS);
+  font-weight: var(--fontWeightMedium);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin-top: var(--spaceM);
+  margin-bottom: var(--spaceM);
+}
+
+.description {
+  color: var(--textLight);
+  max-width: 720px;
+}
+
+.marquee {
+  position: relative;
+  width: calc(100% + var(--space5XL));
+  margin: 0 0 var(--space5XL) calc(var(--space5XL) * -0.5);
+  overflow: hidden;
+  padding: var(--spaceM) 0;
+  mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: scrollRight 112s linear infinite;
+}
+
+.marquee:hover .track {
+  animation-play-state: paused;
+}
+
+.group {
+  display: flex;
+  gap: var(--spaceM);
+  padding-right: var(--spaceM);
+}
+
+.logoCard {
+  min-width: 132px;
+  height: 112px;
+  padding: var(--spaceM);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spaceXS);
+  border: 1px solid color-mix(in lab, var(--text) 12%, transparent);
+  border-radius: 18px;
+  background: color-mix(in lab, var(--text) 5%, var(--background));
+  color: var(--textLight);
+  font-size: var(--fontSizeBodyS);
+  white-space: nowrap;
+  transform-style: preserve-3d;
+  transition: transform 300ms var(--bezierFastoutSlowin), box-shadow 300ms ease,
+    border-color 300ms ease;
+
+  &:hover {
+    z-index: 2;
+    border-color: color-mix(in lab, var(--primary) 46%, transparent);
+    box-shadow: 0 24px 38px color-mix(in lab, var(--black) 42%, transparent),
+      0 0 24px color-mix(in lab, var(--primary) 15%, transparent);
+    transform: perspective(900px) rotateX(-7deg) rotateY(5deg) translateY(-6px)
+      translateZ(12px);
+  }
+}
+
+.logoImage {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.logoFallback {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: color-mix(in lab, var(--primary) 20%, transparent);
+  color: var(--primary);
+  font-size: 15px;
+  font-weight: var(--fontWeightBold);
+}
+
+.groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space2XL);
+}
+
+.skillGroup {
+  min-width: 0;
+  padding: var(--spaceL);
+  border: 1px solid color-mix(in lab, var(--text) 16%, transparent);
+  border-radius: 22px;
+  background: linear-gradient(
+    145deg,
+    color-mix(in lab, var(--text) 5%, var(--background)),
+    color-mix(in lab, var(--background) 94%, var(--primary))
+  );
+  box-shadow: 0 18px 42px color-mix(in lab, var(--black) 15%, transparent);
+  transform-style: preserve-3d;
+  animation: skillCardFloat 8s ease-in-out infinite;
+  animation-delay: var(--card-delay, 0ms);
+  transition: border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
+
+  &:hover {
+    border-color: color-mix(in lab, var(--primary) 42%, transparent);
+    box-shadow: 0 26px 52px color-mix(in lab, var(--black) 32%, transparent);
+    animation-play-state: paused;
+    transform: perspective(1100px) rotateX(2deg) rotateY(-2deg) translateY(-5px);
+  }
+}
+
+.groupTitle {
+  margin-bottom: var(--spaceL);
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spaceS);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  & li {
+    padding: 0.55em 0.85em;
+    border-radius: 999px;
+    border: 1px solid color-mix(in lab, var(--text) 14%, transparent);
+    color: var(--textLight);
+    font-size: var(--fontSizeBodyS);
+    transform: translateZ(0);
+    transition: color 180ms ease, border-color 180ms ease, background 180ms ease,
+      transform 180ms ease;
+
+    &:hover {
+      color: var(--text);
+      border-color: color-mix(in lab, var(--primary) 52%, transparent);
+      background: color-mix(in lab, var(--primary) 9%, transparent);
+      transform: translateY(-2px) translateZ(10px);
+    }
+  }
+}
+
+@keyframes scrollRight {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes orbitTurn {
+  from { transform: rotateX(68deg) rotateZ(-24deg); }
+  to { transform: rotateX(68deg) rotateZ(336deg); }
+}
+
+@keyframes orbitTurnReverse {
+  from { transform: rotateY(66deg) rotateX(18deg) rotateZ(0); }
+  to { transform: rotateY(66deg) rotateX(18deg) rotateZ(-360deg); }
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) rotateY(-12deg); }
+  50% { transform: translate3d(0, -12px, 28px) rotateY(12deg); }
+}
+
+@keyframes skillCardFloat {
+  0%, 100% { transform: perspective(1100px) rotateX(0) rotateY(0) translateY(0); }
+  50% { transform: perspective(1100px) rotateX(0.5deg) rotateY(-0.7deg) translateY(-3px); }
+}
+
+@media (--mediaTablet) {
+  .marquee {
+    width: calc(100% + var(--space3XL));
+    margin-left: calc(var(--space3XL) * -0.5);
+  }
+}
+
+@media (--mediaMobile) {
+  .techStack {
+    padding-top: var(--space4XL);
+    padding-bottom: var(--space4XL);
+  }
+
+  .marquee {
+    margin-bottom: var(--space3XL);
+  }
+
+  .groups {
+    grid-template-columns: 1fr;
+    gap: var(--spaceXL);
+  }
+
+  .orbitScene {
+    top: 80px;
+    right: -170px;
+    width: 360px;
+    opacity: 0.22;
+  }
+
+  .logoCard {
+    min-width: 112px;
+    height: 96px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track,
+  .orbitRing,
+  .orbitRingSecondary,
+  .orb,
+  .skillGroup {
+    animation: none;
+  }
+}

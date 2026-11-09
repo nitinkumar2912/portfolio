@@ -1,82 +1,30 @@
-# Nitin Kumar Portfolio
+<p align="center">
+  <img src="/public/favicon.svg" width="50" alt="Nitin Kumar monogram" />
+</p>
+<h1 align="center">Nitin Kumar — MERN Stack Developer</h1>
 
-A professional Next.js portfolio for Nitin Kumar, a Computer Science student at Delhi Technological University focused on MERN stack development, DSA practice, open source learning, and software engineering internships.
+[Portfolio preview](/public/site-preview.png)
 
-## Live Links
+Personal portfolio for Nitin Kumar, a Computer Science student at Delhi Technological University. The site highlights his projects, technical skills, GitHub activity, and contact options. It is built with Remix, React, Three.js, and Framer Motion.
 
-- Portfolio:https://www.nitinkumar.website/
-- GitHub: https://github.com/nitinkumar2912
-- LinkedIn: https://www.linkedin.com/in/nitin-kumar-30790336a/
-- Email: nitinkumar29122501@gmail.com
+## Run locally
 
-## Highlights
-
-- Recruiter-focused hero section with clear positioning and strong CTAs
-- Professional About section centered on DTU, MERN development, DSA, and internship readiness
-- Organized skills across languages, frontend, backend, database, tools, core CS, and DSA
-- Featured JobTrackr project with full feature list, tech stack, GitHub link, and live demo
-- TopTodo project card with modular JavaScript architecture and live deployment
-- Open Source Journey section for GitHub collaboration, pull requests, issue tracking, and GSoC preparation
-- DSA roadmap with editable progress tracker and key problem-solving topics
-- Contact section with email, GitHub, LinkedIn, and portfolio links
-- Minimal premium dark UI inspired by modern developer portfolios
-- Responsive layout, rounded cards, soft borders, hover lift states, scroll animations, and accessible focus styles
-
-## Tech Stack
-
-- Next.js App Router
-- TypeScript
-- Tailwind CSS
-- shadcn/ui-style components
-- Framer Motion
-- Lucide React
-
-## Featured Projects
-
-### JobTrackr
-
-- GitHub: https://github.com/nitinkumar2912/JobTracker
-- Live Demo: https://job-tracker-client-murex.vercel.app
-- Stack: React, Node.js, Express.js, MongoDB Atlas, JWT, Render, Vercel
-- Features: JWT authentication, analytics dashboard, Kanban board, interview notes, recruiter tracking, follow-up reminders, activity timeline, Render deployment, and Vercel deployment
-
-### TopTodo
-
-- GitHub: https://github.com/nitinkumar2912/TopTodo
-- Live Demo: https://nitinkumar2912.github.io/TopTodo/
-- Stack: JavaScript, Webpack, date-fns, Local Storage
-- Features: project organization, due date scheduling, local storage persistence, reusable components, and clean UI
-
-## Getting Started
-
-Install dependencies:
+Use Node.js `19.9.0` or newer and npm `9.6.3` or newer.
 
 ```bash
 npm install
-```
-
-Start the development server:
-
-```bash
+cp .dev.vars.example .dev.vars
 npm run dev
 ```
 
-Build for production:
+Add the Telegram bot token and chat ID to `.dev.vars` to enable the contact form locally. Configure `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, and `SESSION_SECRET` in the Cloudflare Pages environment for deployment.
+
+## Useful commands
 
 ```bash
+npm run dev:storybook
 npm run build
+npm run deploy
 ```
 
-Preview the production build:
-
-```bash
-npm run start
-```
-
-## Contact
-
-For software engineering internship opportunities, project feedback, or collaboration:
-
-- Email: nitinkumar29122501@gmail.com
-- GitHub: https://github.com/nitinkumar2912
-- LinkedIn: https://www.linkedin.com/in/nitin-kumar-30790336a/
+The project is licensed under the MIT License; see [LICENSE](LICENSE).

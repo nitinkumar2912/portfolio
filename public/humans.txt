@@ -1,0 +1,30 @@
+__  __  __
+\ \ \ \ \/
+ \ \/\ \
+  \/  \/
+
+The humans.txt file explains the people and technology behind this site.
+
+_______________________________________________________________________________
+
+PORTFOLIO
+
+Design, content, and development: Nitin Kumar
+Email: nitinkumar29122501@gmail.com
+GitHub: github.com/nitinkumar2912
+LinkedIn: linkedin.com/in/nitin-kumar-30790336a
+
+_______________________________________________________________________________
+
+TECHNOLOGY
+
+React
+Remix
+Three.js
+Framer Motion
+
+_______________________________________________________________________________
+
+FONTS
+
+Gotham

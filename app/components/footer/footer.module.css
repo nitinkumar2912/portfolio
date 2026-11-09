@@ -1,0 +1,219 @@
+@layer components {
+  .footer {
+    position: relative;
+    isolation: isolate;
+    perspective: 1400px;
+    width: 100%;
+    margin-top: var(--space4XL);
+    padding: var(--space5XL) var(--spaceOuter) var(--spaceL);
+    overflow: hidden;
+    color: var(--text);
+    background:
+      linear-gradient(135deg, color-mix(in lab, var(--primary) 10%, var(--background)), var(--background) 58%),
+      var(--background);
+    border-top: 1px solid color-mix(in lab, var(--primary) 20%, transparent);
+
+    @media (--mediaLaptop) {
+      padding-right: var(--space3XL);
+      padding-left: var(--space3XL);
+    }
+
+    @media (--mediaMobile) {
+      margin-top: var(--space3XL);
+      padding: var(--space3XL) var(--spaceL) var(--spaceM);
+    }
+  }
+
+  .glow {
+    position: absolute;
+    z-index: -1;
+    top: -220px;
+    right: 5%;
+    width: 520px;
+    height: 420px;
+    border-radius: 50%;
+    background: color-mix(in lab, var(--primary) 18%, transparent);
+    filter: blur(100px);
+    opacity: 0.45;
+    pointer-events: none;
+    transform-style: preserve-3d;
+    animation: footerGlowFloat 11s ease-in-out infinite alternate;
+  }
+
+  .content {
+    width: 100%;
+    max-width: var(--maxWidthXL);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(260px, 0.8fr);
+    gap: var(--space4XL) var(--space5XL);
+
+    @media (--mediaTablet) {
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 0.7fr);
+      gap: var(--space3XL);
+    }
+
+    @media (--mediaMobile) {
+      grid-template-columns: 1fr;
+      gap: var(--space3XL);
+    }
+  }
+
+  .callout {
+    max-width: 650px;
+  }
+
+  .eyebrow,
+  .label {
+    color: var(--primary);
+    font-size: var(--fontSizeBodyXS);
+    font-weight: var(--fontWeightMedium);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .heading {
+    margin: var(--spaceM) 0;
+    font-size: clamp(2.2rem, 5vw, 4.5rem);
+    line-height: 1.04;
+    letter-spacing: -0.055em;
+  }
+
+  .message {
+    max-width: 460px;
+    font-size: var(--fontSizeBodyL);
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spaceM);
+    margin-top: var(--spaceXL);
+  }
+
+  .primaryLink,
+  .secondaryLink {
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spaceS);
+    padding: 0 var(--spaceL);
+    border-radius: 999px;
+    font-size: var(--fontSizeBodyS);
+    font-weight: var(--fontWeightMedium);
+    text-decoration: none;
+    transition: transform 180ms ease, background 180ms ease, color 180ms ease;
+
+    &:hover {
+      transform: perspective(800px) translate3d(0, -3px, 10px) rotateX(3deg);
+    }
+  }
+
+  .primaryLink {
+    color: var(--black);
+    background: var(--primary);
+
+    &:hover {
+      background: color-mix(in lab, var(--primary) 82%, white);
+    }
+  }
+
+  .secondaryLink {
+    color: var(--text);
+    border: 1px solid color-mix(in lab, var(--text) 22%, transparent);
+    background: color-mix(in lab, var(--text) 4%, transparent);
+
+    &:hover {
+      background: color-mix(in lab, var(--text) 9%, transparent);
+    }
+  }
+
+  .navigation {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--spaceXL);
+    justify-self: end;
+    min-width: min(100%, 390px);
+
+    @media (--mediaMobile) {
+      justify-self: stretch;
+    }
+  }
+
+  .linkColumn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spaceM);
+
+    & a {
+      color: var(--textLight);
+      text-decoration: none;
+      transition: color 160ms ease;
+
+      &:hover {
+        color: var(--primary);
+      }
+    }
+  }
+
+  .label {
+    margin-bottom: var(--spaceXS);
+    color: var(--text);
+  }
+
+  .bottom {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--spaceM);
+    padding-top: var(--spaceL);
+    border-top: 1px solid color-mix(in lab, var(--text) 14%, transparent);
+    color: var(--textLight);
+    font-size: var(--fontSizeBodyXS);
+
+    & a {
+      color: var(--text);
+      text-decoration: none;
+
+      &:hover {
+        color: var(--primary);
+      }
+    }
+
+    @media (--mediaMobile) {
+      grid-column: auto;
+    }
+  }
+
+  .bottomNote {
+    text-align: center;
+  }
+
+  @keyframes footerGlowFloat {
+    from {
+      transform: translate3d(0, 0, 0) scale(0.96);
+      opacity: 0.32;
+    }
+
+    to {
+      transform: translate3d(-36px, 22px, 34px) scale(1.08);
+      opacity: 0.52;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .glow {
+      animation: none;
+    }
+
+    .primaryLink:hover,
+    .secondaryLink:hover {
+      transform: none;
+    }
+  }
+}
