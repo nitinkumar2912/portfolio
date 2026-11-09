@@ -182,3 +182,37 @@
     box-shadow: none;
   }
 }
+
+@media (max-width: 430px) {
+  .profile {
+    width: 100%;
+    padding-inline: 16px;
+  }
+
+  .content {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--spaceXL);
+  }
+
+  .column {
+    min-width: 0;
+  }
+
+  .column:nth-child(2) {
+    align-items: center;
+  }
+
+  .title {
+    white-space: normal;
+  }
+
+  .image {
+    width: clamp(12rem, 60vw, 16rem);
+    max-width: 100%;
+    margin-inline: auto;
+  }
+
+  .contributions {
+    min-width: 0;
+  }
+}

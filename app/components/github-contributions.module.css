@@ -26,10 +26,13 @@
 }
 
 .scrollArea {
+  width: 100%;
   max-width: 100%;
+  min-width: 0;
   overflow-x: auto;
   overflow-y: visible;
   padding: 4px 0 12px;
+  overscroll-behavior-x: contain;
   scrollbar-color: color-mix(in lab, var(--text) 25%, transparent) transparent;
 }
 
@@ -138,6 +141,18 @@
   .calendarFooter {
     align-items: flex-start;
     flex-direction: column;
+  }
+}
+
+@media (max-width: 430px) {
+  .scrollArea {
+    padding-block: 8px 12px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 }
 

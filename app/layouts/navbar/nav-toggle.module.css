@@ -11,6 +11,10 @@
 
     @media (--mediaMobile), (--mediaMobileLS) {
       display: flex;
+      position: absolute;
+      inset-block: 0;
+      inset-inline-end: 0;
+      margin-block: auto;
     }
   }
 

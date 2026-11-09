@@ -112,7 +112,12 @@ export function GithubContributions() {
       ) : (
         <>
           {error ? <p className={styles.updateNotice} role="status">Showing the last available calendar. {error}</p> : null}
-          <div className={styles.scrollArea}>
+          <div
+            className={styles.scrollArea}
+            role="region"
+            aria-label="Scrollable GitHub contribution calendar"
+            tabIndex={0}
+          >
             <div className={styles.calendarContent}>
               <div className={styles.months} aria-hidden="true">
                 {monthLabels.map(month => (

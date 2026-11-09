@@ -222,6 +222,41 @@
   }
 }
 
+@media (max-width: 430px) {
+  .techStack {
+    padding-inline: 16px;
+  }
+
+  .groups {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--spaceL);
+  }
+
+  .skillGroup {
+    width: 100%;
+    padding: var(--spaceM);
+    border-radius: 18px;
+  }
+
+  .groupTitle {
+    margin-bottom: var(--spaceM);
+    overflow-wrap: anywhere;
+  }
+
+  .skills {
+    gap: var(--spaceS);
+  }
+
+  .skills li {
+    max-width: 100%;
+    padding: 6px 10px;
+    font-size: 12px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .track,
   .skillGroup {

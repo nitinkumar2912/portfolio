@@ -21,6 +21,14 @@
 
     @media (--mediaMobile), (--mediaMobileLS) {
       bottom: auto;
+      left: var(--spaceOuter);
+      right: var(--spaceOuter);
+      top: var(--spaceOuter);
+      width: auto;
+      height: 64px;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
     }
   }
 
@@ -32,7 +40,11 @@
     perspective: 1000px;
 
     @media (--mediaMobile) {
-      padding-bottom: var(--spaceS);
+      padding: var(--spaceS);
+    }
+
+    @media (--mediaMobileLS) {
+      padding: var(--spaceS);
     }
   }
 
