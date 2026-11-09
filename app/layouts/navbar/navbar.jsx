@@ -46,9 +46,18 @@ export const Navbar = () => {
       { id: 'project-2', pathname: '/#project-1' },
       { id: 'project-3', pathname: '/#project-1' },
       { id: 'tech-stack', pathname: '/#tech-stack' },
+      { id: 'contact', pathname: '/contact' },
     ];
 
     const updateCurrentSection = () => {
+      const atPageBottom =
+        window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+
+      if (atPageBottom) {
+        setCurrent(previous => previous === '/contact' ? previous : '/contact');
+        return;
+      }
+
       const marker = window.innerHeight * 0.42;
       const section = sections.find(({ id }) => {
         const element = document.getElementById(id);

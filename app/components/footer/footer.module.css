@@ -13,6 +13,11 @@
       var(--background);
     border-top: 1px solid color-mix(in lab, var(--primary) 20%, transparent);
 
+    @media (min-width: 697px) and (min-height: 697px) {
+      width: calc(100% - var(--mobileNavOffset));
+      margin-left: var(--mobileNavOffset);
+    }
+
     @media (--mediaLaptop) {
       padding-right: var(--space3XL);
       padding-left: var(--space3XL);

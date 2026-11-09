@@ -14,7 +14,6 @@
     bottom: var(--spaceOuter);
     z-index: var(--zIndex4);
     isolation: isolate;
-    perspective: 1000px;
 
     @media (--mediaMobile) {
       --headerNavFontSize: calc((22 / 16) * 1rem);
@@ -30,6 +29,7 @@
     position: relative;
     padding: var(--spaceS) var(--spaceS) var(--spaceL);
     z-index: var(--zIndex2);
+    perspective: 1000px;
 
     @media (--mediaMobile) {
       padding-bottom: var(--spaceS);
@@ -43,6 +43,7 @@
     align-items: center;
     flex: 1 1 auto;
     max-width: var(--space2XL);
+    perspective: 1000px;
 
     @media (--mediaMobile), (--mediaMobileLS) {
       display: none;
@@ -87,6 +88,7 @@
       position: absolute;
       inset-inline-start: var(--spaceS);
       inset-inline-end: var(--spaceS);
+      inset-block-end: var(--spaceS);
       block-size: 4px;
       background: var(--accent);
       transform: scaleY(0) translateZ(0);

@@ -115,11 +115,6 @@ export function TechStack({ id }) {
   return (
     <Section className={styles.techStack} as="section" id={id}>
       <div className={styles.content}>
-        <div className={styles.orbitScene} aria-hidden="true">
-          <span className={styles.orbitRing} />
-          <span className={styles.orbitRingSecondary} />
-          <span className={styles.orb} />
-        </div>
         <div className={styles.intro}>
           <span className={styles.eyebrow}>What I work with</span>
           <Heading level={2} as="h2" className={styles.title}>

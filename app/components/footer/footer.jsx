@@ -12,7 +12,7 @@ const footerLinks = [
 ];
 
 export const Footer = ({ className }) => (
-  <footer className={classes(styles.footer, className)}>
+  <footer id="contact" className={classes(styles.footer, className)}>
     <div className={styles.glow} aria-hidden="true" />
     <div className={styles.content}>
       <div className={styles.callout}>

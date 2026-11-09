@@ -14,66 +14,6 @@
   isolation: isolate;
 }
 
-.orbitScene {
-  position: absolute;
-  z-index: 0;
-  top: 10px;
-  right: -120px;
-  width: min(38vw, 430px);
-  aspect-ratio: 1;
-  perspective: 1000px;
-  transform-style: preserve-3d;
-  opacity: 0.36;
-  pointer-events: none;
-}
-
-.orbitRing,
-.orbitRingSecondary {
-  position: absolute;
-  inset: 8%;
-  border: 1px solid color-mix(in lab, var(--primary) 42%, transparent);
-  border-radius: 50%;
-  transform-style: preserve-3d;
-}
-
-.orbitRing {
-  transform: rotateX(68deg) rotateZ(-24deg);
-  animation: orbitTurn 24s linear infinite;
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 7%;
-    left: 50%;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--primary);
-    box-shadow: 0 0 28px color-mix(in lab, var(--primary) 75%, transparent);
-    transform: translateZ(42px);
-  }
-}
-
-.orbitRingSecondary {
-  inset: 20%;
-  border-color: color-mix(in lab, var(--text) 28%, transparent);
-  transform: rotateY(66deg) rotateX(18deg);
-  animation: orbitTurnReverse 31s linear infinite;
-}
-
-.orb {
-  position: absolute;
-  top: 31%;
-  left: 31%;
-  width: 38%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(circle at 32% 28%, #bcffff, #00dce9 24%, #087b91 55%, #08151f 78%);
-  box-shadow: inset -16px -18px 38px #02090f, 0 24px 70px color-mix(in lab, var(--primary) 30%, transparent);
-  transform-style: preserve-3d;
-  animation: orbFloat 7s ease-in-out infinite;
-}
-
 .intro,
 .marquee,
 .groups {
@@ -249,21 +189,6 @@
   to { transform: translateX(0); }
 }
 
-@keyframes orbitTurn {
-  from { transform: rotateX(68deg) rotateZ(-24deg); }
-  to { transform: rotateX(68deg) rotateZ(336deg); }
-}
-
-@keyframes orbitTurnReverse {
-  from { transform: rotateY(66deg) rotateX(18deg) rotateZ(0); }
-  to { transform: rotateY(66deg) rotateX(18deg) rotateZ(-360deg); }
-}
-
-@keyframes orbFloat {
-  0%, 100% { transform: translate3d(0, 0, 0) rotateY(-12deg); }
-  50% { transform: translate3d(0, -12px, 28px) rotateY(12deg); }
-}
-
 @keyframes skillCardFloat {
   0%, 100% { transform: perspective(1100px) rotateX(0) rotateY(0) translateY(0); }
   50% { transform: perspective(1100px) rotateX(0.5deg) rotateY(-0.7deg) translateY(-3px); }
@@ -291,13 +216,6 @@
     gap: var(--spaceXL);
   }
 
-  .orbitScene {
-    top: 80px;
-    right: -170px;
-    width: 360px;
-    opacity: 0.22;
-  }
-
   .logoCard {
     min-width: 112px;
     height: 96px;
@@ -306,9 +224,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .track,
-  .orbitRing,
-  .orbitRingSecondary,
-  .orb,
   .skillGroup {
     animation: none;
   }
