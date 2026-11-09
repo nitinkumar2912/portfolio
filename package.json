@@ -1,6 +1,5 @@
 {
   "name": "nitin-kumar-portfolio",
-  "homepage": "https://nitinkumar2912.github.io/portfolio",
   "description": "Portfolio site for Nitin Kumar",
   "author": "Nitin Kumar",
   "sideEffects": false,
@@ -8,9 +7,7 @@
   "scripts": {
     "build": "remix vite:build",
     "dev": "node ./scripts/dev.cjs && remix vite:dev",
-    "start": "wrangler pages dev ./build/client",
     "postinstall": "node ./scripts/draco.cjs",
-    "deploy": "npm run build && wrangler pages deploy ./build/client --project-name portfolio",
     "dev:storybook": "storybook dev -p 6006",
     "build:storybook": "storybook build",
     "deploy:storybook": "wrangler pages deploy ./storybook-static --project-name portfolio-storybook --branch main"
@@ -18,12 +15,11 @@
   "dependencies": {
     "@aws-sdk/client-ses": "^3.515.0",
     "@mdx-js/react": "^3.0.1",
-    "@remix-run/cloudflare": "^2.7.1",
-    "@remix-run/cloudflare-pages": "^2.7.1",
-    "@remix-run/react": "^2.7.1",
+    "@remix-run/node": "2.16.7",
+    "@remix-run/react": "2.16.7",
+    "@vercel/remix": "2.16.7-patch.1",
     "framer-motion": "11.0.5",
     "isbot": "^4.1.0",
-    "miniflare": "^3.20231030.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rehype-img-size": "^1.0.1",
@@ -35,7 +31,7 @@
     "@csstools/postcss-global-data": "^2.1.1",
     "@mapbox/rehype-prism": "^0.9.0",
     "@mdx-js/rollup": "^3.0.1",
-    "@remix-run/dev": "^2.7.1",
+    "@remix-run/dev": "2.16.7",
     "@storybook/addon-a11y": "^7.6.17",
     "@storybook/addon-essentials": "^7.6.17",
     "@storybook/addon-interactions": "^7.6.17",
@@ -63,6 +59,6 @@
     "wrangler": "^3.24.0"
   },
   "engines": {
-    "node": ">=19.9.0"
+    "node": ">=20.0.0"
   }
 }

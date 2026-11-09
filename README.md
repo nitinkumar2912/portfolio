@@ -9,22 +9,24 @@ Personal portfolio for Nitin Kumar, a Computer Science student at Delhi Technolo
 
 ## Run locally
 
-Use Node.js `19.9.0` or newer and npm `9.6.3` or newer.
+Use Node.js `20.0.0` or newer and npm `9.6.3` or newer.
 
 ```bash
 npm install
-cp .dev.vars.example .dev.vars
 npm run dev
 ```
 
-Add the Telegram bot token and chat ID to `.dev.vars` to enable the contact form locally. Configure `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, and `SESSION_SECRET` in the Cloudflare Pages environment for deployment.
+Set `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, and `SESSION_SECRET` in your local shell to enable the contact form and signed theme session. Add the same variables to the Vercel project’s Environment Variables settings for the Preview and Production environments where you want those features enabled. Keep their values out of Git.
+
+Keep Vercel system environment variables enabled so `VERCEL_PROJECT_PRODUCTION_URL` is available for canonical URLs in Preview deployments.
 
 ## Useful commands
 
 ```bash
 npm run dev:storybook
 npm run build
-npm run deploy
 ```
+
+Vercel builds the app with `npm run build`. Push a separate Git branch to create a Vercel Preview Deployment; no custom output directory is required.
 
 The project is licensed under the MIT License; see [LICENSE](LICENSE).

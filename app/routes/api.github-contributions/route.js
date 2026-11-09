@@ -1,4 +1,4 @@
-import { json } from '@remix-run/cloudflare';
+import { json } from '~/utils/server-runtime.server';
 import config from '~/config.json';
 
 const contributionsUrl = `https://github.com/users/${config.github}/contributions`;

@@ -1,0 +1,23 @@
+.env
+.env.*
+.dev.vars
+.dev.vars.*
+.vercel
+/build/
+/storybook-static/
+
+# Dependencies
+node_modules/
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Vercel
+.vercel/
+
+# Build output
+build/
+dist/
+storybook-static/
