@@ -30,3 +30,5 @@ npm run build
 Vercel builds the app with `npm run build`. Push a separate Git branch to create a Vercel Preview Deployment; no custom output directory is required.
 
 The project is licensed under the MIT License; see [LICENSE](LICENSE).
+
+push git push -u origin codex/vercel-migration
